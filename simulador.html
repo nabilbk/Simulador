@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Campo eletrico</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="view/Tela.js"></script>
+    <script type="text/javascript" src="view/libs/three.js"></script>
+    <script type="text/javascript" src="view/libs/Projector.js"></script>
+    <script type="text/javascript" src="view/libs/TrackballControls.js"></script>
+    <script type="text/javascript" src="view/Cena3D.js"></script>
+    <script type="text/javascript" src="view/BarraLateral.js"></script>
+    <script type="text/javascript" src="view/BarraInferior.js"></script>
+    <script type="text/javascript" src="view/Objetos.js"></script>
+    <script type="text/javascript" src="controller/MyController.js"></script>
+    <link href="view/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div id="container">
+
+        <div id="BarraLateral">
+            <div id="anel">  
+                <!-- <input type="image" src="view/img/anel.png" width="70" onclick="tela1.barraLateral.insereAnel(2);"> -->
+                <input type="image" src="view/img/anel.png" width="70" id="anelBotao">
+             </div>
+        </div>
+        <div id="WebGL"></div>
+        <div id= "BarraInferior"></div>
+     
+    </div>
+
+    <div id="popup" class="popup">
+        <p>Conteúdo do pop-up aqui.</p>
+        <form id="myForm" >
+            First name:<br>
+            <input type="text" name="posicao" value="4,0,0,0" id="posicao"><br>
+            Last name:<br>
+            <input type="text" name="carga" value="10"><br><br>
+            <input type="button" onclick="myFunction()" value="Submit form">
+        </form>
+    </div>
+</body>
+</html>

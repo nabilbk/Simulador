@@ -1,0 +1,37 @@
+#container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+	}
+
+#BarraLateral{
+    width: 20%;
+    height: 100%;
+    float:left;
+    /*background-color: gray;*/
+}    
+#WebGL{
+    width: 75%;
+    height: 85%;
+    float:left;
+    /*background-color: gray;*/
+}
+#BarraInferior{
+    width: 75%;
+    height: 15%;
+    float:left;
+    /*background-color: gray;*/
+}
+#anel{
+    padding-left: 30%;
+    padding-top: 10%;
+}
+#popup{
+    margin: auto;
+    width: 300px;
+    height: 150px;
+    padding: 20px;
+    border: solid 1px #331;
+    background: #ffffd0;
+    display: none;
+}
