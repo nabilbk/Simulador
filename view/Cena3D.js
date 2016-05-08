@@ -53,70 +53,67 @@ var Cena3D = function(div) {
 
     renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
     renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    // renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+    renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 
     function onDocumentMouseMove( event ) {
-                event.preventDefault();
-                mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-                mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-                //
-                raycaster.setFromCamera( mouse, camera );  
-    }
-    // function onDocumentMouseDown( event ) {
-    //     event.preventDefault();
-    //     console.log("onDocumentMouseDown");
-    //     raycaster.setFromCamera( mouse, camera );
-    //     alert(objetos);
-    //     var intersects = raycaster.intersectObjects( objetos );
-    //     if ( intersects.length > 0 ) {
-    //         controls.enabled = false;
-    //         SELECTED = intersects[0].object;
-    //         var intersects = raycaster.intersectObject( plane );
-    //         alert("INTERSECTED");
-    //         if ( intersects.length > 0 ) {
-    //             offset.copy( intersects[ 0 ].point ).sub(plane.position);
-    //         }
-    //         container.style.cursor = 'move';
-    //     }        
-    // }
+        event.preventDefault();
+		mouse.x = ( (event.clientX - event.target.getBoundingClientRect().left) / event.currentTarget.width ) * 2 - 1;
+		mouse.y = - ( (event.clientY - event.target.getBoundingClientRect().top) / event.currentTarget.height ) * 2 + 1;
+        raycaster.setFromCamera( mouse, camera );
 
+        if ( SELECTED ) {
+            var intersects = raycaster.intersectObject( plane );
+            if ( intersects.length > 0 ) {
+            SELECTED.position.copy( intersects[ 0 ].point.sub( offset ) );
+            }
+        return;
+        }
+        var intersects = raycaster.intersectObjects( objetos );
+            if ( intersects.length > 0 ) {
+                if ( INTERSECTED != intersects[ 0 ].object ) {
+                    if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+                        INTERSECTED = intersects[ 0 ].object;
+                        INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+                        plane.position.copy( INTERSECTED.position );
+                        plane.lookAt( camera.position );
+                    }
+                } else {
+                    if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+                    INTERSECTED = null;
+                }
+    }
 
     function onDocumentMouseDown(event) {
 
-    	console.log("function onDocumentMouseDown");
+        console.log("function onDocumentMouseDown");
         console.log(mouse.x, mouse.y);
-  //       var vector = new THREE.Vector3(( event.clientX / $("#WebGL").width() ) * 2 - 1, -( event.clientY / $("#WebGL").height() ) * 2 + 1, 1);
-  //       vector = vector.unproject(camera);
-
-  //       var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-		// raycaster.setFromCamera( vector, camera ); 
-  //       var intersects = raycaster.intersectObjects(objetos);
 
         raycaster.setFromCamera( mouse, camera );
         var intersects = raycaster.intersectObjects( objetos );
 
         if (intersects.length > 0) {
-            alert("finalmente");
-        	console.log(intersects[0]);
-            intersects[0].object.material.transparent = true;
-            intersects[0].object.material.opacity = 0.1;
+            // console.log(intersects[0]);
+            // intersects[0].object.material.transparent = true;
+            // intersects[0].object.material.opacity = 0.1;
             SELECTED = intersects[0].object;
             var intersects = raycaster.intersectObject( plane );
             if ( intersects.length > 0 ) {
                  offset.copy( intersects[ 0 ].point ).sub(plane.position);
             }
+        }
+    }
 
+    function onDocumentMouseUp( event ) {
+        event.preventDefault();
+        if ( INTERSECTED ) {
+            plane.position.copy( INTERSECTED.position );
+            SELECTED = null;
         }
     }
 
 
-    // function onDocumentMouseUp( event ) {
-    //     console.log("onDocumentMouseUp");
-    // }
-
-
     function renderScene() {
-    	// stats.update();
+        // stats.update();
         // render using requestAnimationFrame
         renderer.render(cena, camera);
         requestAnimationFrame(renderScene);
@@ -134,21 +131,21 @@ var Cena3D = function(div) {
         return renderer;
     }
 
-    	// keyboards events
-	document.addEventListener('keydown', function(event) {
-	    if(event.keyCode == 37) {
+        // keyboards events
+    document.addEventListener('keydown', function(event) {
+        if(event.keyCode == 37) {
             teta += 0.1;
             camera.position.z = zoom * Math.sin(teta);
             camera.position.x = zoom * Math.cos(teta);
             camera.lookAt(cena.position);
-	    }else if(event.keyCode == 39) {
-	        teta -= 0.1;
+        }else if(event.keyCode == 39) {
+            teta -= 0.1;
             camera.position.z = zoom * Math.sin(teta);
             camera.position.x = zoom * Math.cos(teta);
             camera.lookAt(cena.position);
-	    }
+        }
 
-	 });
+     });
 
 
     this.getObjeto = function(){

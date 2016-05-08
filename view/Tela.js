@@ -13,9 +13,6 @@ var Tela = function() {
     window.addEventListener("resize", function(){
     	tela1.cena3D.resize("WebGL"); 
 	});
-
-    // a = new AnelView(2,0,0,0);
-    // this.cena3D.addObjeto(a);
 }
 
 
