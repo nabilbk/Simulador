@@ -12,6 +12,8 @@
     <script type="text/javascript" src="view/BarraInferior.js"></script>
     <script type="text/javascript" src="view/Objetos.js"></script>
     <script type="text/javascript" src="controller/MyController.js"></script>
+    <script type="text/javascript" src="model/ObjetosModel.js"></script>
+    <script type="text/javascript" src="model/fisica.js"></script>
     <link href="view/index.css" rel="stylesheet" type="text/css" />
     
 </head>
@@ -32,6 +34,16 @@
                             <input type="image" src="view/img/anel.png" class="btn btn-default" width="80" id="anelBotao">
                         </div>
                     </li>
+                    <li role="presentation">   
+                        <div id="disco">
+                            <input type="image" src="view/img/disco.jpg" class="btn btn-default" width="80" id="discoBotao">
+                        </div>
+                    </li>
+                    <li role="presentation">   
+                        <div id="linha">
+                            <input type="image" src="view/img/linha.jpg" class="btn btn-default" width="80" id="linhaBotao">
+                        </div>
+                    </li>
                 </ul>
             </div>
 
@@ -41,11 +53,15 @@
                 </div>
 
                 <div id= "BarraInferior" class="row">
+
+                    <div id="campo" class="col-md-3">  
+                        <input type="image" src="view/img/campo.png" class="btn btn-default" width="70" id="campoBotao">
+                    </div>
                     <div id="forca" class="col-md-3 ">  
                         <input type="image" src="view/img/forca.png" class="btn btn-default" width="70" id="forcaBotao">
                     </div>
-                    <div id="campo" class="col-md-3">  
-                        <input type="image" src="view/img/campo.png" class="btn btn-default" width="70" id="campoBotao">
+                    <div id="trabalho" class="col-md-3">  
+                        <input type="image" src="view/img/trabalho.png" class="btn btn-default" width="70" id="trabalhoBotao">
                     </div>
                 </div>
             </div>
@@ -59,7 +75,7 @@
             raio,x,y,z:<br>
             <input type="text" name="posicao" value="4,0,0,0" id="posicao"><br>
             carga:<br>
-            <input type="text" name="carga" value="10"><br><br>
+            <input type="text" name="carga" value="10" id="carga"><br><br>
             <input type="button" onclick="myFunction()" value="Submit form">
         </form>
     </div>

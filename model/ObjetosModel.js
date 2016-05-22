@@ -1,14 +1,75 @@
+var Objetos = function(){
+
+    var objetos = [];
+    var pontos = [];
+    console.log("instanciou classe Objetos");
+
+    this.addObjetoModel = function(obj, carga){
+        // insere objetos geometricos no vetor de objetos 
+        if(obj == "anel") {
+            obje = new AnelModel(carga);
+            objetos.push(obje);
+        }
+        // insere todos os pontos em um vetor de pontos
+        if(obj == "ponto") {
+            obje = new PontoModel(carga);
+            pontos.push(obje);
+        }
+        // insere todos os pontos em um vetor de pontos
+        if(obj == "disco") {
+            obje = new DiscoModel(carga);
+            objetos.push(obje);
+        }
+        // insere todos os pontos em um vetor de pontos
+        if(obj == "linha") {
+            obje = new LinhaModel(carga);
+            objetos.push(obje);
+        }
+    }
+
+    this.removeObjetoModel = function(){
+        console.log("TODO: remove obj model : ObjetosModel");
+    }
+
+    // metodo para listar todos os objetos do Model
+    this.listObj = function(){
+        return objetos;
+    }
+
+    // metodo para listar todos os pontos inseridos no Model
+    this.listPontos = function(){
+        return pontos;
+    }
+
+    this.deleteObjetoModel = function(obj){
+        alert("TODO: deleteObjetoModel");
+    }
+
+    this.showObjetosModel = function(){
+        alert(objetos);
+    }
+}
+
 // define a classe Anel
-var AnelView = function(carga) { 
-    this.carga
+var AnelModel = function(carga) {
+    console.log("Cria AnelModel");
+    this.carga = carga;
+}
+
+// define a classe Anel
+var DiscoModel = function(carga) {
+    console.log("Cria DiscoModel");
+    this.carga = carga;
+}
+
+// define a classe Anel
+var LinhaModel = function(carga) {
+    console.log("Cria LinhaModel");
+    this.carga = carga;
 }
 
 // define a classe Ponto
-var PontoView = function(carga) { 
-    this.carga;
-}
-
-// metodos da classe anel
-AnelView.prototype.getRaio = function(){
-	return this.carga;
+var PontoModel = function(carga) { 
+    console.log("Cria PontoModel"); 
+    this.carga = carga;
 }

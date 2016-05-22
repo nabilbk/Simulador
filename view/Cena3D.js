@@ -33,6 +33,8 @@ var Cena3D = function(div) {
     cena.add(axes);
 
     var objetos = [], plane;
+    var pontos = [];
+    var vetores = [];
     var controls;
 
     plane = new THREE.Mesh(
@@ -68,7 +70,8 @@ var Cena3D = function(div) {
             }
         return;
         }
-        var intersects = raycaster.intersectObjects( objetos );
+        var ob = objetos.concat(pontos);
+        var intersects = raycaster.intersectObjects( ob );
             if ( intersects.length > 0 ) {
                 if ( INTERSECTED != intersects[ 0 ].object ) {
                     if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
@@ -89,13 +92,15 @@ var Cena3D = function(div) {
         console.log(mouse.x, mouse.y);
 
         raycaster.setFromCamera( mouse, camera );
-        var intersects = raycaster.intersectObjects( objetos );
+        var ob = objetos.concat(pontos);
+        var intersects = raycaster.intersectObjects( ob );
 
         if (intersects.length > 0) {
             // console.log(intersects[0]);
             // intersects[0].object.material.transparent = true;
             // intersects[0].object.material.opacity = 0.1;
             SELECTED = intersects[0].object;
+            // removeObjeto(SELECTED);
             var intersects = raycaster.intersectObject( plane );
             if ( intersects.length > 0 ) {
                  offset.copy( intersects[ 0 ].point ).sub(plane.position);
@@ -111,6 +116,12 @@ var Cena3D = function(div) {
         }
     }
 
+    function removeObjeto(obj){
+        cena.remove(obj);
+        // objetos.pop(obj);
+        // controlador.objeto.removerObjetoModel("anel", parseInt(carga));
+        alert("Cena3D: remover obj model");
+    }
 
     function renderScene() {
         // stats.update();
@@ -145,15 +156,21 @@ var Cena3D = function(div) {
             camera.lookAt(cena.position);
         }
 
-     });
+        if(event.keyCode == 38) {
+            zoom -= 2;
+        }
+        if(event.keyCode == 40) {
+            zoom += 2;
+        }        
 
+     });
 
     this.getObjeto = function(){
         alert("TODO: getObjeto");
     }
 
     this.resize = function(div){
-        alert("renderizar");
+        // alert("renderizar");
         renderer.setSize($("#"+div).width(), $("#"+div).height());
         renderer.domElement.style.border ="solid black 2px";  
     }
@@ -163,8 +180,46 @@ var Cena3D = function(div) {
         objetos.push(obj);
     }
 
+    this.addPonto = function(obj){
+        cena.add(obj);
+        pontos.push(obj);
+    }
+
+    this.addVetor = function(pInicial, Pfim){
+        obj = new VetorView(pInicial, Pfim);
+        cena.add(obj);
+        vetores.push(obj);
+    }
+
+	this.selecionaPontos = function(){
+        alert("Selecione o ponto inicial e final");
+        var pt = 0;
+        while(pt < 2){
+        	console.log("TODO: Cena3D: seleciona ponto "+pt);
+        	pt++;	
+        }
+    }
+
+    // metodo para listar todos os objetos do Model
+    this.listObjView = function(){
+        return objetos;
+    }
+
+    // metodo para listar todos os pontos inseridos no Model
+    this.listPontosView = function(){
+        return pontos;
+    }
+
     this.deleteObjeto = function(obj){
         cena.remove(obj);
+    }
+
+    this.showObjetos = function(){
+        alert(objetos);
+    }
+
+    this.showPontos = function(){
+        alert(Pontos);
     }
 
     this.moverObjeto = function(obj, x, y, z){
