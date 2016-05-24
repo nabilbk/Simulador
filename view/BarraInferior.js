@@ -19,4 +19,9 @@ var BarraInferior = function(div) {
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
+   document.getElementById("potencialBotao").addEventListener("click", function() {
+		controlador.calculaPotencial();
+		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
+   }, false);
+
 }

@@ -104,3 +104,7 @@ function myFunction() {
   tela1.barraLateral.insereObj(document.getElementById('popup').style.id);
 }
 
+
+function fecharpopup(){
+  tela1.barraLateral.fecharPop(); 
+}

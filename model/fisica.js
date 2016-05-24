@@ -226,3 +226,129 @@ function calcTrabalho(p_inicial, p_final, objView, objModel, pontoModel){
     }
     return w;
 };
+
+
+
+function calcPotencialAnel(p_click, p_obj, raio, carga){
+
+  	var nIteracoes = 1000;
+
+    // pegar carga
+    var Q = carga * Math.pow(10,-6);
+    
+    // console.log(Q.toExponential(4));
+	var dQ = Q/nIteracoes;
+
+	var teta = 0;
+	var dTeta = 2*Math.PI/nIteracoes;
+	var V = 0;       
+	var dV = 0; 
+	var epsilon = 8.854 * Math.pow(10,-12); // constante de permissividade C^2/N*m^2
+	var k = 1 / (4*Math.PI*epsilon);
+	// p is a vector of point of dQ
+	var p = [0, 0, 0]; 
+	// r is vector from ring dq to click point
+	var r = [0, 0, 0]; 
+	var rModulo = [0, 0, 0]; 
+
+	for (var i = 0; i < nIteracoes; i++) {
+
+		p[0] = 0 + p_obj[0];
+	 	p[1] = raio*Math.cos(teta) + p_obj[1];
+	 	p[2] = raio*Math.sin(teta) + p_obj[2];
+
+	 	r[0] = p_click[0] - p[0];
+	 	r[1] = p_click[1] - p[1];
+	 	r[2] = p_click[2] - p[2];
+
+	 	rModulo = calcMod(r); // função sqrsp
+	 	
+	 	dV = k*(dQ/rModulo);
+
+	 	V = V + dV;
+	
+	 	teta = teta + dTeta;
+   	};
+	V = V.toFixed(10);
+   	return V;
+};
+
+
+function calcPotencialDisco(p_click, p_obj, raio, carga){
+
+	var nIteracoes = 1000;
+
+	// campo eletrico total no disco
+	var VD = 0;
+	
+	// espessura de cada anel
+	var dR = raio/nIteracoes;
+
+	// raio do anel que será integrado
+	var R = dR/2;
+
+	// carga de cada anel
+	var dQ = 0;
+
+	// densidade de carga do disco
+	var sig = carga/ (Math.PI* Math.pow(raio,2));
+
+	for (var i = 0; i < nIteracoes; i++){
+		dQ = 2*Math.PI*sig*R*dR;
+		dV = calcPotencialAnel(p_click,p_obj,R,dQ);
+		// console.log(p_click+" , "+p_obj+" , "+R+" , "+dQ);
+		// alert(calcCampoAnel(p_click,p_obj,R,dQ));
+
+		VD = VD + parseFloat(dV);
+    	R = R + dR;
+
+	}
+   	return VD;
+};
+
+function calcPotencialLinha(p_click, p_obj, comprimento, carga){
+ 	
+  	var nIteracoes = 1000;
+
+    // Carga
+    var Q = carga * Math.pow(10,-6);
+   	var dQ = Q/nIteracoes;
+
+	var V = 0;       
+	var dV = 0; 
+	var epsilon = 8.854 * Math.pow(10,-12); // constante de permissividade C^2/N*m^2
+	var k = 1 / (4*Math.PI*epsilon);
+
+	// p is a vector of point of dQ
+	var p = [0, 0, 0]; 
+	// r is vector from ring dq to click point
+
+	var r = [0, 0, 0]; 
+	var rUnitario = [0, 0, 0]; 
+	var rModulo = [0, 0, 0]; 
+
+	var cont = comprimento/nIteracoes;
+	var dp = cont/2;
+
+	for (var i = 0; i < nIteracoes; i++) {
+
+		p[0] = 0 + (p_obj[0] - (comprimento/2)) + dp;
+	 	p[1] = p_obj[1];
+	 	p[2] = p_obj[2];
+
+	 	r[0] = p_click[0] - p[0];
+	 	r[1] = p_click[1] - p[1];
+	 	r[2] = p_click[2] - p[2];
+
+	 	rModulo = calcMod(r); // função sqrsp
+	 	
+	 	dV = k*(dQ/rModulo);
+
+	 	V = V + dV;
+
+	 	dp = dp + cont;
+   	};
+
+	V = V.toFixed(10);
+   	return V;	
+};

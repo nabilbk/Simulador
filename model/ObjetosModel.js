@@ -27,8 +27,12 @@ var Objetos = function(){
         }
     }
 
-    this.removeObjetoModel = function(){
-        console.log("TODO: remove obj model : ObjetosModel");
+    this.removeObjetoModel = function(indice){
+        objetos.splice(indice,1);
+    }
+
+    this.removePontoModel = function(indice){
+        pontos.splice(indice,1);
     }
 
     // metodo para listar todos os objetos do Model

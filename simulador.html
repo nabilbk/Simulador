@@ -63,6 +63,9 @@
                     <div id="trabalho" class="col-md-3">  
                         <input type="image" src="view/img/trabalho.png" class="btn btn-default" width="70" id="trabalhoBotao">
                     </div>
+                    <div id="potencial" class="col-md-3">  
+                        <input type="image" src="view/img/potencial.png" class="btn btn-default" width="70" id="potencialBotao">
+                    </div>
                 </div>
             </div>
             
@@ -77,6 +80,22 @@
             carga:<br>
             <input type="text" name="carga" value="10" id="carga"><br><br>
             <input type="button" onclick="myFunction()" value="Submit form">
+            <input type="button" onclick="fecharpopup()" value="Cancelar">
+
+        </form>
+    </div>
+
+    <div id="popupCena" class="popupCena">
+        <p>Parametros</p>
+        <form id="myFormObj" >
+            x,y,z:<br>
+            <input type="text" name="posicao" value="4,0,0,0" id="posicao"><br>
+            carga:<br>
+            <input type="text" name="carga" value="10" id="carga"><br><br>
+            <input type="button" onclick="myFunction2()" value="Submit">
+            <input type="button" onclick="fecharpopup2()" value="Cancelar">
+            <input type="button" onclick="tela1.cena3D.excluir()" value="Excluir">
+
         </form>
     </div>
 

@@ -46,7 +46,7 @@ var Cena3D = function(div) {
     // var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2(),
     offset = new THREE.Vector3(),
-    INTERSECTED, SELECTED;
+    INTERSECTED, SELECTED, OBJ;
 
     // ???
     var projector = new THREE.Projector();
@@ -56,6 +56,8 @@ var Cena3D = function(div) {
     renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
     renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
     renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+    renderer.domElement.addEventListener( 'dblclick', onDocumentDoubleClick, false);
+
 
     function onDocumentMouseMove( event ) {
         event.preventDefault();
@@ -86,6 +88,7 @@ var Cena3D = function(div) {
                 }
     }
 
+
     function onDocumentMouseDown(event) {
 
         console.log("function onDocumentMouseDown");
@@ -108,6 +111,7 @@ var Cena3D = function(div) {
         }
     }
 
+
     function onDocumentMouseUp( event ) {
         event.preventDefault();
         if ( INTERSECTED ) {
@@ -116,11 +120,63 @@ var Cena3D = function(div) {
         }
     }
 
+    this.excluir = function(){
+        removeObjeto(OBJ);
+        tela1.cena3D.fecharPop();     
+    }
+
     function removeObjeto(obj){
-        cena.remove(obj);
-        // objetos.pop(obj);
-        // controlador.objeto.removerObjetoModel("anel", parseInt(carga));
-        alert("Cena3D: remover obj model");
+        if(obj.geometry.type != "SphereGeometry" ){
+            this.i = 0;
+            for(this.i = 0; this.i < objetos.length; this.i++){
+                if(obj === objetos[this.i]){
+                    break;
+                }
+            }
+            cena.remove(obj);
+            objetos.splice(this.i,1);
+            controlador.objeto.removeObjetoModel(this.i);       
+        } else{
+            this.i = 0;
+            for(this.i = 0; this.i < pontos.length; this.i++){
+                if(obj === pontos[this.i]){
+                    break;
+                }
+            }
+            cena.remove(obj);
+            pontos.splice(this.i,1);
+            controlador.objeto.removePontoModel(this.i);
+        }
+    }
+
+    function onDocumentDoubleClick( event ){
+
+        raycaster.setFromCamera( mouse, camera );
+        var intersectsObjetos = raycaster.intersectObjects( objetos );
+        var intersectsPontos = raycaster.intersectObjects( pontos );
+
+        if (intersectsObjetos.length > 0) {
+            OBJ = intersectsObjetos[0].object;
+            document.getElementById('popupCena').style.display = 'block';
+            var div = document.getElementById('popupCena');
+            div.style.position = 'absolute';
+            document.getElementById('popupCena').style.left = event.clientX + 'px';
+            document.getElementById('popupCena').style.top = event.clientY + 'px';
+            // removeObjeto(OBJ);
+        }
+        if (intersectsPontos.length > 0) {
+            OBJ = intersectsPontos[0].object;
+            document.getElementById('popupCena').style.display = 'block';
+            var div = document.getElementById('popupCena');
+            div.style.position = 'absolute';
+            document.getElementById('popupCena').style.left = event.clientX + 'px';
+            document.getElementById('popupCena').style.top = event.clientY + 'px';
+            // removeObjeto(OBJ);
+        }
+    }
+
+    this.fecharPop = function(){
+        document.getElementById('popupCena').style.display = 'none';
     }
 
     function renderScene() {
@@ -210,10 +266,6 @@ var Cena3D = function(div) {
         return pontos;
     }
 
-    this.deleteObjeto = function(obj){
-        cena.remove(obj);
-    }
-
     this.showObjetos = function(){
         alert(objetos);
     }
@@ -241,3 +293,16 @@ var Cena3D = function(div) {
     }
 
 }
+
+// função generica para fechar o popup e inserir objeto
+function myFunction2() {
+    tela1.cena3D.fecharPop(); 
+}
+
+function fecharpopup2(){
+    tela1.cena3D.fecharPop();     
+}
+
+
+
+
