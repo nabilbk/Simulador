@@ -163,6 +163,18 @@ var Cena3D = function(div) {
             document.getElementById('popupCena').style.left = event.clientX + 'px';
             document.getElementById('popupCena').style.top = event.clientY + 'px';
             // removeObjeto(OBJ);
+            this.i = 0;
+            for(this.i = 0; this.i < objetos.length; this.i++){
+                if(OBJ === objetos[this.i]){
+                    break;
+                }
+            }
+            this.carga = controlador.getCarga(this.i, "objeto");
+            // alert("Carga: "+this.carga);
+            document.getElementById('ptx').value = OBJ.position.x;
+            document.getElementById('pty').value = OBJ.position.y;
+            document.getElementById('ptz').value = OBJ.position.z;  
+            document.getElementById('cargaCena').value = this.carga;      
         }
         if (intersectsPontos.length > 0) {
             OBJ = intersectsPontos[0].object;
@@ -171,7 +183,18 @@ var Cena3D = function(div) {
             div.style.position = 'absolute';
             document.getElementById('popupCena').style.left = event.clientX + 'px';
             document.getElementById('popupCena').style.top = event.clientY + 'px';
-            // removeObjeto(OBJ);
+            this.i = 0;
+            for(this.i = 0; this.i < pontos.length; this.i++){
+                if(OBJ === pontos[this.i]){
+                    break;
+                }
+            }
+            // alert("position:"+this.i+", Ponto");
+            this.carga = controlador.getCarga(this.i, "ponto");
+            document.getElementById('ptx').value = OBJ.position.x;
+            document.getElementById('pty').value = OBJ.position.y;
+            document.getElementById('ptz').value = OBJ.position.z;
+            document.getElementById('cargaCena').value = this.carga;
         }
     }
 
@@ -292,12 +315,51 @@ var Cena3D = function(div) {
         camera.rotation.z = z;
     }
 
+    this.myFunction2 = function(){
+        
+        this.posicaox = document.getElementById('ptx').value;
+        this.posicaoy = document.getElementById('pty').value;
+        this.posicaoz = document.getElementById('ptz').value;
+        this.carga = document.getElementById('cargaCena').value;
+
+        OBJ.position.x = parseFloat(this.posicaox); 
+        OBJ.position.y = parseFloat(this.posicaoy);
+        OBJ.position.z = parseFloat(this.posicaoz);
+
+        // alterar carga model
+        if(OBJ.geometry.type != "SphereGeometry" ){
+            this.i = 0;
+            for(this.i = 0; this.i < objetos.length; this.i++){
+                if(OBJ === objetos[this.i]){
+                    break;
+                }
+            }
+            controlador.mudarCarga(this.i, parseFloat(this.carga) ,"objeto");      
+        } else{
+            this.i = 0;
+            for(this.i = 0; this.i < pontos.length; this.i++){
+                if(OBJ === pontos[this.i]){
+                    break;
+                }
+            }
+            controlador.mudarCarga(this.i, parseFloat(this.carga) ,"ponto");      
+        }
+
+        tela1.cena3D.fecharPop();
+
+    }
+
 }
 
 // função generica para fechar o popup e inserir objeto
-function myFunction2() {
-    tela1.cena3D.fecharPop(); 
-}
+// function myFunction2() {
+//     tela1.Cena3D.pObjeto();
+//     tela1.cena3D.fecharPop();
+// }
+
+
+
+
 
 function fecharpopup2(){
     tela1.cena3D.fecharPop();     

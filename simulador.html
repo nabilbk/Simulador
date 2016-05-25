@@ -85,19 +85,44 @@
         </form>
     </div>
 
-    <div id="popupCena" class="popupCena">
-        <p>Parametros</p>
-        <form id="myFormObj" >
-            x,y,z:<br>
-            <input type="text" name="posicao" value="4,0,0,0" id="posicao"><br>
-            carga:<br>
-            <input type="text" name="carga" value="10" id="carga"><br><br>
-            <input type="button" onclick="myFunction2()" value="Submit">
-            <input type="button" onclick="fecharpopup2()" value="Cancelar">
-            <input type="button" onclick="tela1.cena3D.excluir()" value="Excluir">
 
+    <div id="popupCena" class="popupCena">
+        <form id="myFormObj" >
+           <td>
+            <label for="Propriedades">Propriedades: </label>    
+           </td> <br>
+           <td>
+            <label for="x">x: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" size="3" id="ptx">
+           </td>
+           <td>
+            <label for="y">y: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="y" size="3" id="pty">
+           </td>
+           <td>
+            <label for="z">z: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="z" size="3" id="ptz">
+           </td> <br>
+           <td>
+           <td>
+            <label for="carga">Carga: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="carga" size="4" id="cargaCena">
+           </td> <br>
+           <td>
+            <input type="button" onclick="tela1.cena3D.myFunction2()" value="Confirma">
+            <input type="button" onclick="tela1.cena3D.excluir()" value="Excluir">
+           </td>
         </form>
     </div>
 
 </body>
 </html>
+

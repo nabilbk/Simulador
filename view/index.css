@@ -20,11 +20,12 @@
 }
 #popupCena{
     margin: auto;
-    width: 300px;
-    height: 150px;
+    width: 220px;
+    height: 140px;
     padding: 20px;
     border: solid 1px #331;
-    background: #ffffd0;
+    background: #1E90FF;
     display: none;
+    vertical-align: top;
     id: 0;
 }

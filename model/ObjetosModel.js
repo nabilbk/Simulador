@@ -45,6 +45,24 @@ var Objetos = function(){
         return pontos;
     }
 
+    this.mudarCarga = function(index, carga, tipo){
+        if(tipo == "objeto"){
+            objetos[index].carga = parseFloat(carga);
+        } 
+        if(tipo == "ponto"){
+            pontos[index].carga = parseFloat(carga); 
+        }          
+    }
+
+    this.getCarga = function(index, tipo){
+        if(tipo == "objeto"){
+            return objetos[index].carga;
+        } 
+        if(tipo == "ponto"){
+            return pontos[index].carga;            
+        }
+    }
+
     this.deleteObjetoModel = function(obj){
         alert("TODO: deleteObjetoModel");
     }
@@ -52,6 +70,7 @@ var Objetos = function(){
     this.showObjetosModel = function(){
         alert(objetos);
     }
+
 }
 
 // define a classe Anel

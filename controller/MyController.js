@@ -178,4 +178,15 @@ var Controller = function(){
             console.log("Vetor Campo eletrico: "+this.vetor);
         }
     }
+
+
+    // controlador.mudarCarga(this.i, parseFloat(this.carga) ,"ponto");      
+    this.mudarCarga = function(index, carga, tipo){
+        controlador.objeto.mudarCarga(index, carga, tipo);
+    }
+
+    this.getCarga = function(index, tipo){
+        return controlador.objeto.getCarga(index, tipo);           
+    }
+
 }
