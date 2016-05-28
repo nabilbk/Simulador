@@ -15,35 +15,41 @@
     <script type="text/javascript" src="model/ObjetosModel.js"></script>
     <script type="text/javascript" src="model/fisica.js"></script>
     <link href="view/index.css" rel="stylesheet" type="text/css" />
-    
 </head>
 <body>
 
     <div id="container" class="container-fluid">
-        <div class="row">
+        <div class="row" >
 
             <div id="BarraLateral" class="col-md-2 ">
-                <ul class="nav nav-pills nav-stacked "> 
+                <ul class="nav nav-pills nav-stacked centered">
+                    <br> 
                     <li role="presentation" class="active">
                         <div id="ponto">  
                             <input type="image" src="view/img/ponto.png" class="btn btn-default" width="80" id="pontoBotao">       
                         </div>
                     </li>
+                    <br>
                     <li role="presentation">   
                         <div id="anel">
                             <input type="image" src="view/img/anel.png" class="btn btn-default" width="80" id="anelBotao">
                         </div>
                     </li>
+                    <br>
                     <li role="presentation">   
                         <div id="disco">
                             <input type="image" src="view/img/disco.jpg" class="btn btn-default" width="80" id="discoBotao">
                         </div>
                     </li>
+                    <br>
                     <li role="presentation">   
                         <div id="linha">
                             <input type="image" src="view/img/linha.jpg" class="btn btn-default" width="80" id="linhaBotao">
                         </div>
                     </li>
+                    <br>
+                    <button type="button" onclick="limpar();" class="btn btn-default">Limpar Tela</button>
+                    <br>
                 </ul>
             </div>
 
@@ -54,16 +60,16 @@
 
                 <div id= "BarraInferior" class="row">
 
-                    <div id="campo" class="col-md-3">  
+                    <div id="campo" class="col-md-3 vcenter">  
                         <input type="image" src="view/img/campo.png" class="btn btn-default" width="70" id="campoBotao">
                     </div>
-                    <div id="forca" class="col-md-3 ">  
+                    <div id="forca" class="col-md-3 vcenter">  
                         <input type="image" src="view/img/forca.png" class="btn btn-default" width="70" id="forcaBotao">
                     </div>
-                    <div id="trabalho" class="col-md-3">  
+                    <div id="trabalho" class="col-md-3 vcenter">  
                         <input type="image" src="view/img/trabalho.png" class="btn btn-default" width="70" id="trabalhoBotao">
                     </div>
-                    <div id="potencial" class="col-md-3">  
+                    <div id="potencial" class="col-md-3 vcenter">  
                         <input type="image" src="view/img/potencial.png" class="btn btn-default" width="70" id="potencialBotao">
                     </div>
                 </div>
@@ -71,20 +77,6 @@
             
         </div>   
     </div>
-
-    <div id="popup" class="popup">
-        <p>Parametros</p>
-        <form id="myForm" >
-            raio,x,y,z:<br>
-            <input type="text" name="posicao" value="4,0,0,0" id="posicao"><br>
-            carga:<br>
-            <input type="text" name="carga" value="10" id="carga"><br><br>
-            <input type="button" onclick="myFunction()" value="Submit form">
-            <input type="button" onclick="fecharpopup()" value="Cancelar">
-
-        </form>
-    </div>
-
 
     <div id="popupCena" class="popupCena">
         <form id="myFormObj" >
@@ -123,6 +115,121 @@
         </form>
     </div>
 
+
+    <div id="popupPonto" class="popupPonto">
+        <form id="myFormObj" >
+           <td>
+            <label for="x">x: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" value="0" size="3" id="pxPonto">
+           </td>
+           <td>
+            <label for="y">y: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="y" value="0" size="3" id="pyPonto">
+           </td>
+           <td>
+            <label for="z">z: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="z" value="0" size="3" id="pzPonto">
+           </td> <br>
+           <td>
+           <td>
+            <label for="carga">Carga: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="carga" value="10" size="4" id="cargaPonto">
+           </td> <br>
+           <td>
+            <input type="button" onclick="myFunction()" value="Confirma">
+            <input type="button" onclick="fecharpopup()" value="Cancela">
+           </td>
+        </form>
+    </div>
+
+    <div id="popupBarra" class="popupBarra">
+        <form id="myFormObj" >
+           <td>
+            <label for="comprimento">comprimento: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" value="4" size="3" id="comprimento">
+           </td> <br>
+           <td>
+            <label for="x">x: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" value="0" size="3" id="pxLinha">
+           </td>
+           <td>
+            <label for="y">y: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="y" value="0" size="3" id="pyLinha">
+           </td>
+           <td>
+            <label for="z">z: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="z" value="0" size="3" id="pzLinha">
+           </td> <br>
+           <td>
+           <td>
+            <label for="carga">Carga: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="carga" value="10" size="4" id="cargaLinha">
+           </td> <br>
+           <td>
+            <input type="button" onclick="myFunction()" value="Confirma">
+            <input type="button" onclick="fecharpopup()" value="Cancela">
+           </td>
+        </form>
+    </div>
+
+    <div id="popup" class="popup">
+        <form id="myFormObj" >
+           <td>
+            <label for="raio">raio: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" value="4" size="3" id="raio">
+           </td> <br>
+           <td>
+            <label for="x">x: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="x" value="0" size="3" id="pxI">
+           </td>
+           <td>
+            <label for="y">y: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="y" value="0" size="3" id="pyI">
+           </td>
+           <td>
+            <label for="z">z: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="z" value="0" size="3" id="pzI">
+           </td> <br>
+           <td>
+           <td>
+            <label for="carga">Carga: </label>    
+           </td>
+           <td align="left">
+            <input type="text" name="carga" value="10" size="4" id="cargaI">
+           </td> <br>
+           <td>
+            <input type="button" onclick="myFunction()" value="Confirma">
+            <input type="button" onclick="fecharpopup()" value="Cancela">
+           </td>
+        </form>
+    </div>
+    
 </body>
 </html>
 

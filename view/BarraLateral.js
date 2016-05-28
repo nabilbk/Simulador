@@ -1,110 +1,125 @@
 var BarraLateral = function(cena3D, div) {
 
+  var CLICKED;
+
   document.getElementById(div).style.border = "solid red 2px";
   document.getElementById(div).style.backgroundColor = "#096ab1";
 
 
 // Eventos de click nos botões
-  document.getElementById("anelBotao").addEventListener("click", function() {
-    createDiv('anel');
-    tela1.barraLateral.abrirPop(1);
-  }, false);
 
   document.getElementById("pontoBotao").addEventListener("click", function() {
-    createDiv('ponto');
-    tela1.barraLateral.abrirPop(2);
+    CLICKED = "pontoBotao";
+    tela1.barraLateral.createDiv();
+  }, false);
+
+  document.getElementById("anelBotao").addEventListener("click", function() {
+    CLICKED = "anelBotao";
+    tela1.barraLateral.createDiv();
   }, false);
 
   document.getElementById("discoBotao").addEventListener("click", function() {
-    createDiv('disco');
-    tela1.barraLateral.abrirPop(3);
+    CLICKED = "discoBotao";
+    tela1.barraLateral.createDiv();
   }, false);
 
   document.getElementById("linhaBotao").addEventListener("click", function() {
-    createDiv('linha');
-    tela1.barraLateral.abrirPop(4);
-  }, false);
+    CLICKED = "linhaBotao";
+    tela1.barraLateral.createDiv();
+   }, false);
 
 
-  this.abrirPop = function(idPop){
-    if(idPop == 1){
-      document.getElementById('popup').style.id = 1;
-    }else if (idPop == 2) {
-      document.getElementById('popup').style.id = 2;
-    }else if (idPop == 3) {
-      document.getElementById('popup').style.id = 3;
-    }else if (idPop == 4) {
-      document.getElementById('popup').style.id = 4;
-    }else{
-      alert("ERRO abrirPop");
+  // função para criar e ajustar a div do form
+  this.createDiv = function() {
+    if(CLICKED == "pontoBotao"){
+      var div = document.getElementById('popupPonto');
+      // alert("oooooooo"+document.getElementById('pontoBotao').offset().left);
+      div.style.position = 'absolute';
+      div.style.top = '50px';
+      div.style.left = '50px';
+      div.style.display = 'block';
+    }if(CLICKED == "linhaBotao"){
+      var div = document.getElementById('popupBarra');
+      div.style.position = 'absolute';
+      div.style.top = '150px';
+      div.style.left = '50px';
+      div.style.display = 'block';
+    }if(CLICKED == "anelBotao" || CLICKED == "discoBotao"){
+      var div = document.getElementById('popup');
+      div.style.position = 'absolute';
+      div.style.top = '100px';
+      div.style.left = '50px';
+      div.style.display = 'block';
     }
-    document.getElementById('popup').style.display = 'block';
   }
 
-  this.fecharPop = function(){
-    document.getElementById('popup').style.display = 'none';
-  }
-
-
-  this.insereObj = function(id){
-    var posicao = document.getElementById('posicao').value;
-    var carga = document.getElementById('carga').value;
-    var posicao2 = posicao.split(",");
-
-    if(id == 1){
-      obj = new AnelView(parseFloat(posicao2[0]),parseFloat(posicao2[1]),parseFloat(posicao2[2]),parseFloat(posicao2[3]));
-      tela1.cena3D.addObjeto(obj);
-      controlador.objeto.addObjetoModel("anel", parseFloat(carga));
-    }else if(id == 2) {
-      var posicao = document.getElementById('posicao').value;
-      var posicao2 = posicao.split(",");
-      obj = new PontoView(parseFloat(posicao2[0]),parseFloat(posicao2[1]),parseFloat(posicao2[2]),parseFloat(posicao2[3]));
+  // função para inserir objeto
+  this.insereObj = function(){
+    if(CLICKED == "pontoBotao"){
+      this.px = document.getElementById('pxPonto').value;
+      this.py = document.getElementById('pyPonto').value;
+      this.pz = document.getElementById('pzPonto').value;
+      this.carga = document.getElementById('cargaPonto').value;
+      obj = new PontoView(4,parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addPonto(obj);
-      controlador.objeto.addObjetoModel("ponto", parseFloat(carga));
-    }else if(id == 3) {
-      var posicao = document.getElementById('posicao').value;
-      var posicao2 = posicao.split(",");
-      obj = new DiscoView(parseFloat(posicao2[0]),parseFloat(posicao2[1]),parseFloat(posicao2[2]),parseFloat(posicao2[3]));
+      controlador.objeto.addObjetoModel("ponto", parseFloat(this.carga));
+    }else if(CLICKED == "anelBotao") {
+      this.raio = document.getElementById('raio').value
+      this.px = document.getElementById('pxI').value;
+      this.py = document.getElementById('pyI').value;
+      this.pz = document.getElementById('pzI').value;
+      this.carga = document.getElementById('cargaI').value; 
+      obj = new AnelView(parseFloat(this.raio),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addObjeto(obj);
-      controlador.objeto.addObjetoModel("disco", parseFloat(carga));
-    }else if(id == 4) {
-      var posicao = document.getElementById('posicao').value;
-      var posicao2 = posicao.split(",");
-      obj = new LinhaView(parseFloat(posicao2[0]),parseFloat(posicao2[1]),parseFloat(posicao2[2]),parseFloat(posicao2[3]));
+      controlador.objeto.addObjetoModel("anel", parseFloat(this.carga));
+    }else if(CLICKED == "discoBotao") {
+      this.raio = document.getElementById('raio').value
+      this.px = document.getElementById('pxI').value;
+      this.py = document.getElementById('pyI').value;
+      this.pz = document.getElementById('pzI').value;
+      this.carga = document.getElementById('cargaI').value;
+      obj = new DiscoView(parseFloat(this.raio),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addObjeto(obj);
-      controlador.objeto.addObjetoModel("linha", parseFloat(carga));
+      controlador.objeto.addObjetoModel("disco", parseFloat(this.carga));
+    }else if(CLICKED == "linhaBotao") {
+      this.comprimento = document.getElementById('comprimento').value
+      this.px = document.getElementById('pxLinha').value;
+      this.py = document.getElementById('pyLinha').value;
+      this.pz = document.getElementById('pzLinha').value;
+      this.carga = document.getElementById('cargaLinha').value;
+      obj = new LinhaView(parseFloat(this.comprimento),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
+      tela1.cena3D.addObjeto(obj);
+      controlador.objeto.addObjetoModel("linha", parseFloat(this.carga));
     }
     else{
       alert(" BarraLateral.js/ id do objeto nao encontrado ");
     }
   }
-}
 
-// função para criar e ajustar a div do form
-function createDiv(nomeDiv) {
-  var div = document.getElementById('popup');
-  // 2.2 Posição
-  div.style.position = 'absolute';
-  div.style.top = '100px';
-  div.style.left = '50px';
- 
-  var leftDiv = parseFloat(document.getElementById(nomeDiv).style.left, 10);
-  var topDiv = parseFloat(document.getElementById(nomeDiv).style.top, 10);
+  this.fecharPop = function(){
+    if(CLICKED == "pontoBotao") {
+      document.getElementById('popupPonto').style.display = 'none';
+    }
+    if(CLICKED == "anelBotao" || CLICKED == "discoBotao" ){
+      document.getElementById('popup').style.display = 'none';
+    }
+    if(CLICKED == "linhaBotao"){
+       document.getElementById('popupBarra').style.display = 'none';
+    }
+  }
 
-  // ajustar a localização do popup 
-  // TODO: ajustar um offset
-  var divPop = document.getElementById('popup');
-  document.getElementById('popup').style.left = (leftDiv+80) + 'px';
-  document.getElementById('popup').style.top = (topDiv-70) + 'px';
 }
 
 // função generica para fechar o popup e inserir objeto
 function myFunction() {
   tela1.barraLateral.fecharPop(); 
-  tela1.barraLateral.insereObj(document.getElementById('popup').style.id);
+  tela1.barraLateral.insereObj();
 }
-
 
 function fecharpopup(){
   tela1.barraLateral.fecharPop(); 
+}
+
+function limpar(){
+  location.reload();
 }

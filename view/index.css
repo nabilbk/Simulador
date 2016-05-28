@@ -10,13 +10,13 @@
 }
 #popup{
     margin: auto;
-    width: 300px;
-    height: 150px;
+    width: 220px;
+    height: 140px;
     padding: 20px;
     border: solid 1px #331;
-    background: #ffffd0;
+    background: #00FF66;
     display: none;
-    id: 0;
+    vertical-align: top; 
 }
 #popupCena{
     margin: auto;
@@ -28,4 +28,35 @@
     display: none;
     vertical-align: top;
     id: 0;
+}
+#popupBarra{
+    margin: auto;
+    width: 220px;
+    height: 140px;
+    padding: 20px;
+    border: solid 1px #331;
+    background: #F22326;
+    display: none;
+    vertical-align: top;
+}
+#popupPonto{
+    margin: auto;
+    width: 220px;
+    height: 140px;
+    padding: 20px;
+    border: solid 1px #331;
+    background: #F9FF26;
+    display: none;
+    vertical-align: top;   
+}
+
+.nav-tabs.centered, .nav-pills.centered {
+    text-align:center;
+    margin-top:5%;
+}
+
+.vcenter {
+    position: relative;
+    vertical-align: middle;
+    margin-top:1%;
 }

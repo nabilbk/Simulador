@@ -52,11 +52,15 @@ var Cena3D = function(div) {
     var projector = new THREE.Projector();
 
     renderScene();
+    var TRABALHO = 0;
 
     renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
     renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
     renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
     renderer.domElement.addEventListener( 'dblclick', onDocumentDoubleClick, false);
+    // renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDownTrab, false );
+
+
 
 
     function onDocumentMouseMove( event ) {
@@ -110,6 +114,23 @@ var Cena3D = function(div) {
             }
         }
     }
+
+    // function onDocumentMouseDownTrab(event){
+    //     if(TRABALHO > 0){
+    //         raycaster.setFromCamera( mouse, camera );
+    //         this.intersectsPontos = raycaster.intersectObjects( pontos );
+    //         if (this.intersectsPontos.length > 0) {
+    //             alert("Selecionou um Ponto");
+    //             OBJ = this.intersectsPontos[0].object;
+    //             TRABALHO++;
+    //         }
+    //     }
+    //     if(TRABALHO == 3){
+    //         TRABALHO = 0;
+    //         alert("Pontos selecionados");
+    //     }
+
+    // }
 
 
     function onDocumentMouseUp( event ) {
@@ -272,11 +293,7 @@ var Cena3D = function(div) {
 
 	this.selecionaPontos = function(){
         alert("Selecione o ponto inicial e final");
-        var pt = 0;
-        while(pt < 2){
-        	console.log("TODO: Cena3D: seleciona ponto "+pt);
-        	pt++;	
-        }
+        // TRABALHO = 1;
     }
 
     // metodo para listar todos os objetos do Model
@@ -350,16 +367,6 @@ var Cena3D = function(div) {
     }
 
 }
-
-// função generica para fechar o popup e inserir objeto
-// function myFunction2() {
-//     tela1.Cena3D.pObjeto();
-//     tela1.cena3D.fecharPop();
-// }
-
-
-
-
 
 function fecharpopup2(){
     tela1.cena3D.fecharPop();     
