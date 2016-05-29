@@ -28,8 +28,24 @@ var Cena3D = function(div) {
     spotLight.castShadow = true;
     cena.add(spotLight);
 
+    // add spotlight for the shadows
+    var spotLight2 = new THREE.SpotLight(0xffffff);
+    spotLight2.position.set(0, 80, 0);
+    spotLight2.castShadow = true;
+    cena.add(spotLight2);
+
+    cena.fog = new THREE.Fog( 0x111111, 150, 200 );
+
+    // add spotlight for the shadows
+    var spotLight = new THREE.SpotLight(0xffffff);
+    spotLight.position.set(-40, 60, 0);
+    spotLight.castShadow = true;
+    cena.add(spotLight);
+
+
+
     // show axes in the screen
-    var axes = new THREE.AxisHelper(70);
+    var axes = new THREE.AxisHelper(400);
     cena.add(axes);
 
     var objetos = [], plane;
@@ -137,6 +153,7 @@ var Cena3D = function(div) {
         event.preventDefault();
         if ( INTERSECTED ) {
             plane.position.copy( INTERSECTED.position );
+            removeVetor();
             SELECTED = null;
         }
     }
@@ -233,9 +250,9 @@ var Cena3D = function(div) {
     // classe render
     function createRender(div){
         console.log("renderizar : "+div);
-        var renderer = new THREE.WebGLRenderer({ antialias: true });
+        var renderer = new THREE.WebGLRenderer({ alpha: true , antialias: true });
         renderer.setSize($("#"+div).width(), $("#"+div).height()); 
-        renderer.setClearColor(new THREE.Color(0xc0cfbc));
+        renderer.setClearColor(new THREE.Color(0x000000));
         renderer.domElement.style.border ="solid blue 2px"; 
         // adiciona a saida do render para um elemento html
         document.getElementById(div).appendChild(renderer.domElement);
@@ -255,14 +272,16 @@ var Cena3D = function(div) {
             camera.position.x = zoom * Math.cos(teta);
             camera.lookAt(cena.position);
         }
-
         if(event.keyCode == 38) {
             zoom -= 2;
+            camera.position.x = zoom;
+            camera.lookAt(cena.position);
         }
         if(event.keyCode == 40) {
             zoom += 2;
-        }        
-
+            camera.position.x = zoom;
+            camera.lookAt(cena.position);
+        }       
      });
 
     this.getObjeto = function(){
@@ -285,10 +304,18 @@ var Cena3D = function(div) {
         pontos.push(obj);
     }
 
-    this.addVetor = function(pInicial, Pfim){
-        obj = new VetorView(pInicial, Pfim);
+    this.addVetor = function(pInicial, Pfim, tipo){
+        obj = new VetorView(pInicial, Pfim, tipo);
         cena.add(obj);
         vetores.push(obj);
+    }
+
+    function removeVetor(){
+        this.i = 0;
+        for(this.i = 0; this.i < vetores.length; this.i++){
+            cena.remove(vetores[this.i]);
+        }      
+        vetores = [];
     }
 
 	this.selecionaPontos = function(){

@@ -2,11 +2,10 @@ var BarraLateral = function(cena3D, div) {
 
   var CLICKED;
 
-  document.getElementById(div).style.border = "solid red 2px";
-  document.getElementById(div).style.backgroundColor = "#096ab1";
+  // document.getElementById(div).style.border = "solid red 2px";
+  document.getElementById(div).style.backgroundColor = "#000080";
 
-
-// Eventos de click nos botões
+  // Eventos de click nos botões
 
   document.getElementById("pontoBotao").addEventListener("click", function() {
     CLICKED = "pontoBotao";
