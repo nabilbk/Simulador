@@ -73,6 +73,7 @@ var BarraInferior = function(div) {
    		};
 
    		for (this.i = 0; this.i < this.pts.length; this.i++) {
+   			alert("forrr");
    			var opt0 = document.createElement("option");
     		opt0.value = this.i;
     		opt0.text = "P"+this.i;
@@ -84,17 +85,14 @@ var BarraInferior = function(div) {
    function limparCombo(){
 
 	var comboInicial = document.getElementById("cboPincial");
-	
 	var comboFinal = document.getElementById("cboPfinal");
-
-	for (i = 0; i < comboInicial.length; i = i + 1) {
-	    comboInicial.remove(i);
-	}
-
-	for (i = 0; i < comboFinal.length; i = i + 1) {
-		comboFinal.remove(i);
-	}
-
+	
+    while (comboInicial.length) {
+        comboInicial.remove(0);
+    }
+    while (comboFinal.length) {
+        comboFinal.remove(0);
+    }
    }
 }
 
