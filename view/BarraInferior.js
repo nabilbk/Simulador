@@ -73,7 +73,6 @@ var BarraInferior = function(div) {
    		};
 
    		for (this.i = 0; this.i < this.pts.length; this.i++) {
-   			alert("forrr");
    			var opt0 = document.createElement("option");
     		opt0.value = this.i;
     		opt0.text = "P"+this.i;
