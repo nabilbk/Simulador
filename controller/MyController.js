@@ -128,8 +128,8 @@ var Controller = function(){
         if(this.a.length < 2){
             alert("Inserir mais um ponto");
         } 
-        // selecionar dois pontos na tela
-        this.pts = tela1.cena3D.selecionaPontos();
+        // // selecionar dois pontos na tela
+        // this.pts = tela1.cena3D.selecionaPontos();
 
         this.j = 0;
         // percorer o vetor de objetos

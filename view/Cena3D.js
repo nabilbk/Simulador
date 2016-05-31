@@ -325,10 +325,10 @@ var Cena3D = function(div) {
         vetores = [];
     }
 
-	this.selecionaPontos = function(){
-        alert("Selecione o ponto inicial e final");
-        // TRABALHO = 1;
-    }
+	// this.selecionaPontos = function(){
+ //        alert("Selecione o ponto inicial e final");
+ //        // TRABALHO = 1;
+ //    }
 
     // metodo para listar todos os objetos do Model
     this.listObjView = function(){
