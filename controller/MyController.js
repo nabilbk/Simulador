@@ -108,11 +108,11 @@ var Controller = function(){
         }
     }
 
-    this.calculaTrabalho = function(){
+    this.calculaTrabalho = function(p_inicial, p_final){
 
         this.trab = 0;
-        this.p_inicial = [2,0,0];
-        this.p_final = [6,0,0];
+        this.p_inicial = p_inicial;
+        this.p_final = p_final;
 
         this.a = tela1.cena3D.listPontosView();
         this.aModel = controlador.objeto.listPontos();
@@ -127,7 +127,7 @@ var Controller = function(){
         }
         if(this.a.length < 2){
             alert("Inserir mais um ponto");
-        }
+        } 
         // selecionar dois pontos na tela
         this.pts = tela1.cena3D.selecionaPontos();
 

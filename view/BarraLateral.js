@@ -61,6 +61,8 @@ var BarraLateral = function(cena3D, div) {
       this.carga = document.getElementById('cargaPonto').value;
       obj = new PontoView(4,parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addPonto(obj);
+      // this.texto = new Texto("aaa",0,0,0);
+      // tela1.cena3D.addTextp(texto);
       controlador.objeto.addObjetoModel("ponto", parseFloat(this.carga));
     }else if(CLICKED == "anelBotao") {
       this.raio = document.getElementById('raio').value

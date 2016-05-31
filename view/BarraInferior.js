@@ -15,7 +15,9 @@ var BarraInferior = function(div) {
    }, false);
    
    document.getElementById("trabalhoBotao").addEventListener("click", function() {
-		controlador.calculaTrabalho();
+   		limparCombo();
+		carregarCombo(); 		
+   	    abriPop();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
@@ -24,4 +26,78 @@ var BarraInferior = function(div) {
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
+
+   this.fecharPop = function(){
+   		document.getElementById('comboBox').style.display = 'none';
+   }
+
+   this.calculaTrabalhoBotao = function(){
+
+		var comboInicial = document.getElementById("cboPincial");
+
+		var comboFinal = document.getElementById("cboPfinal");
+
+   		posiaoI = comboInicial.options[comboInicial.selectedIndex].value;
+   		posiaoF = comboFinal.options[comboFinal.selectedIndex].value;
+
+   		this.pts = tela1.cena3D.listPontosView();
+
+   		pIncial = [this.pts[posiaoI].position.x, this.pts[posiaoI].position.y, this.pts[posiaoI].position.z];
+   		pFinal = [this.pts[posiaoF].position.x, this.pts[posiaoF].position.y, this.pts[posiaoF].position.z];
+		controlador.calculaTrabalho(pIncial, pFinal);
+		fecharpopupInf();
+
+   }
+
+   function abriPop(){
+   	    document.getElementById('comboBox').style.display = 'block';
+        // var div = document.getElementById('popupCena');
+        document.getElementById('comboBox').style.position = 'absolute';
+        document.getElementById('comboBox').style.left = '950px';
+        document.getElementById('comboBox').style.top = '150px';
+   }
+
+   function carregarCombo(){
+   		this.pts = tela1.cena3D.listPontosView();
+
+		var comboInicial = document.getElementById("cboPincial");
+
+		var comboFinal = document.getElementById("cboPfinal");
+
+   		for (this.i = 0; this.i < this.pts.length; this.i++) {
+   			var opt0 = document.createElement("option");
+    		opt0.value = this.i;
+    		opt0.text = "P"+this.i;
+    		comboInicial.add(opt0, comboInicial.options[0]);
+    		// comboFinal.add(opt0, comboFinal.options[0]);
+   		};
+
+   		for (this.i = 0; this.i < this.pts.length; this.i++) {
+   			var opt0 = document.createElement("option");
+    		opt0.value = this.i;
+    		opt0.text = "P"+this.i;
+    		// comboInicial.add(opt0, comboInicial.options[0]);
+    		comboFinal.add(opt0, comboFinal.options[0]);
+   		};
+   }
+
+   function limparCombo(){
+
+	var comboInicial = document.getElementById("cboPincial");
+	
+	var comboFinal = document.getElementById("cboPfinal");
+
+	for (i = 0; i < comboInicial.length; i = i + 1) {
+	    comboInicial.remove(i);
+	}
+
+	for (i = 0; i < comboFinal.length; i = i + 1) {
+		comboFinal.remove(i);
+	}
+
+   }
+}
+
+function fecharpopupInf(){
+    tela1.barraInferior.fecharPop();     
 }

@@ -8,7 +8,7 @@ var Cena3D = function(div) {
     var camera = new THREE.PerspectiveCamera(45, $("#WebGL").width() / $("#WebGL").height(), 0.1, 1000);
     // position and point the camera to the center of the scene
     var teta = 0;
-    var zoom = 50;
+    var zoom = 60;
     camera.position.x = zoom;
     camera.position.y = 10;
     camera.position.z = 0;
@@ -263,21 +263,23 @@ var Cena3D = function(div) {
     document.addEventListener('keydown', function(event) {
         if(event.keyCode == 37) {
             teta += 0.1;
-            camera.position.z = zoom * Math.sin(teta);
-            camera.position.x = zoom * Math.cos(teta);
+            camera.position.z = Math.abs(zoom) * Math.sin(teta);
+            camera.position.x = Math.abs(zoom) * Math.cos(teta);
             camera.lookAt(cena.position);
         }else if(event.keyCode == 39) {
             teta -= 0.1;
-            camera.position.z = zoom * Math.sin(teta);
-            camera.position.x = zoom * Math.cos(teta);
+            camera.position.z = Math.abs(zoom) * Math.sin(teta);
+            camera.position.x = Math.abs(zoom) * Math.cos(teta);
             camera.lookAt(cena.position);
         }
         if(event.keyCode == 38) {
+            zoom = camera.position.x;
             zoom -= 2;
             camera.position.x = zoom;
             camera.lookAt(cena.position);
         }
         if(event.keyCode == 40) {
+            zoom = camera.position.x;
             zoom += 2;
             camera.position.x = zoom;
             camera.lookAt(cena.position);
@@ -300,6 +302,11 @@ var Cena3D = function(div) {
     }
 
     this.addPonto = function(obj){
+        cena.add(obj);
+        pontos.push(obj);
+    }
+
+    this.addTexto = function(obj){
         cena.add(obj);
         pontos.push(obj);
     }
