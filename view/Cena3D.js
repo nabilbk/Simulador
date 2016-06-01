@@ -244,7 +244,7 @@ var Cena3D = function(div) {
 
     // classe render
     function createRender(div){
-        console.log("renderizar : "+div);
+        // console.log("renderizar : "+div);
         var renderer = new THREE.WebGLRenderer({ alpha: true , antialias: true });
         renderer.setSize($("#"+div).width(), $("#"+div).height()); 
         renderer.setClearColor(new THREE.Color(0x000000));
@@ -282,10 +282,6 @@ var Cena3D = function(div) {
      });
 
     this.atualizaLabels = function(){
-        console.log("1");
-        // percorer vetores de pontos e add labels para todos eles 
-        // criar funções para add label nos vetores e add W e V 
-        // se der tempo clicar no vetor e mostrar as caracteriscas
         removeTexto();
         this.i = 0;
         for(this.i = 0; this.i < pontos.length; this.i++){

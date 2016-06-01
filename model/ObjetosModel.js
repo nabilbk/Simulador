@@ -2,7 +2,7 @@ var Objetos = function(){
 
     var objetos = [];
     var pontos = [];
-    console.log("instanciou classe Objetos");
+    // console.log("instanciou classe Objetos");
 
     this.addObjetoModel = function(obj, carga){
         // insere objetos geometricos no vetor de objetos 
@@ -75,24 +75,24 @@ var Objetos = function(){
 
 // define a classe Anel
 var AnelModel = function(carga) {
-    console.log("Cria AnelModel");
+    // console.log("Cria AnelModel");
     this.carga = carga;
 }
 
 // define a classe Anel
 var DiscoModel = function(carga) {
-    console.log("Cria DiscoModel");
+    // console.log("Cria DiscoModel");
     this.carga = carga;
 }
 
 // define a classe Anel
 var LinhaModel = function(carga) {
-    console.log("Cria LinhaModel");
+    // console.log("Cria LinhaModel");
     this.carga = carga;
 }
 
 // define a classe Ponto
 var PontoModel = function(carga) { 
-    console.log("Cria PontoModel"); 
+    // console.log("Cria PontoModel"); 
     this.carga = carga;
 }
