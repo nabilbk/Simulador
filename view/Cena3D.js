@@ -118,8 +118,8 @@ var Cena3D = function(div) {
 
     function onDocumentMouseDown(event) {
 
-        console.log("function onDocumentMouseDown");
-        console.log(mouse.x, mouse.y);
+        // console.log("function onDocumentMouseDown");
+        // console.log(mouse.x, mouse.y);
 
         // raycaster.setFromCamera( mouse, camera );
 

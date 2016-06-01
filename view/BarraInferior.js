@@ -7,7 +7,7 @@ var BarraInferior = function(div) {
    document.getElementById("forcaBotao").addEventListener("click", function() {
    		//retorar uma tupla vetor id e valor do campo
    		controlador.calculaForca();
-   		tela1.cena3D.addLabelForca();
+   		// tela1.cena3D.addLabelForca();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
@@ -27,7 +27,7 @@ var BarraInferior = function(div) {
    document.getElementById("potencialBotao").addEventListener("click", function() {
 		controlador.calculaPotencial();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO 
-		tela1.cena3D.addLabelPotencial();
+		// tela1.cena3D.addLabelPotencial();
    }, false);
 
 
