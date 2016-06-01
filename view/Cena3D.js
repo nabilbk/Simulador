@@ -51,6 +51,7 @@ var Cena3D = function(div) {
     var objetos = [], plane;
     var pontos = [];
     var vetores = [];
+    var textos = [];
     var controls;
 
     plane = new THREE.Mesh(
@@ -64,6 +65,8 @@ var Cena3D = function(div) {
     offset = new THREE.Vector3(),
     INTERSECTED, SELECTED, OBJ;
 
+    var vector;
+
     // ???
     var projector = new THREE.Projector();
 
@@ -76,14 +79,18 @@ var Cena3D = function(div) {
     renderer.domElement.addEventListener( 'dblclick', onDocumentDoubleClick, false);
     // renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDownTrab, false );
 
-
-
-
     function onDocumentMouseMove( event ) {
         event.preventDefault();
 		mouse.x = ( (event.clientX - event.target.getBoundingClientRect().left) / event.currentTarget.width ) * 2 - 1;
 		mouse.y = - ( (event.clientY - event.target.getBoundingClientRect().top) / event.currentTarget.height ) * 2 + 1;
-        raycaster.setFromCamera( mouse, camera );
+       
+        // raycaster.setFromCamera( mouse, camera );
+       
+
+        vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+        vector = vector.unproject(camera);
+
+        raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
 
         if ( SELECTED ) {
             var intersects = raycaster.intersectObject( plane );
@@ -114,7 +121,8 @@ var Cena3D = function(div) {
         console.log("function onDocumentMouseDown");
         console.log(mouse.x, mouse.y);
 
-        raycaster.setFromCamera( mouse, camera );
+        // raycaster.setFromCamera( mouse, camera );
+
         var ob = objetos.concat(pontos);
         var intersects = raycaster.intersectObjects( ob );
 
@@ -131,36 +139,19 @@ var Cena3D = function(div) {
         }
     }
 
-    // function onDocumentMouseDownTrab(event){
-    //     if(TRABALHO > 0){
-    //         raycaster.setFromCamera( mouse, camera );
-    //         this.intersectsPontos = raycaster.intersectObjects( pontos );
-    //         if (this.intersectsPontos.length > 0) {
-    //             alert("Selecionou um Ponto");
-    //             OBJ = this.intersectsPontos[0].object;
-    //             TRABALHO++;
-    //         }
-    //     }
-    //     if(TRABALHO == 3){
-    //         TRABALHO = 0;
-    //         alert("Pontos selecionados");
-    //     }
-
-    // }
-
-
     function onDocumentMouseUp( event ) {
         event.preventDefault();
         if ( INTERSECTED ) {
             plane.position.copy( INTERSECTED.position );
             removeVetor();
             SELECTED = null;
+            tela1.cena3D.atualizaLabels();        
         }
     }
 
     this.excluir = function(){
         removeObjeto(OBJ);
-        tela1.cena3D.fecharPop();     
+        tela1.cena3D.fecharPop();
     }
 
     function removeObjeto(obj){
@@ -173,7 +164,7 @@ var Cena3D = function(div) {
             }
             cena.remove(obj);
             objetos.splice(this.i,1);
-            controlador.objeto.removeObjetoModel(this.i);       
+            controlador.objeto.removeObjetoModel(this.i);
         } else{
             this.i = 0;
             for(this.i = 0; this.i < pontos.length; this.i++){
@@ -184,12 +175,14 @@ var Cena3D = function(div) {
             cena.remove(obj);
             pontos.splice(this.i,1);
             controlador.objeto.removePontoModel(this.i);
+            tela1.cena3D.atualizaLabels();        
         }
     }
 
     function onDocumentDoubleClick( event ){
 
-        raycaster.setFromCamera( mouse, camera );
+        // raycaster.setFromCamera( mouse, camera );
+
         var intersectsObjetos = raycaster.intersectObjects( objetos );
         var intersectsPontos = raycaster.intersectObjects( pontos );
 
@@ -234,10 +227,12 @@ var Cena3D = function(div) {
             document.getElementById('ptz').value = OBJ.position.z;
             document.getElementById('cargaCena').value = this.carga;
         }
+
     }
 
     this.fecharPop = function(){
         document.getElementById('popupCena').style.display = 'none';
+        tela1.cena3D.atualizaLabels();        
     }
 
     function renderScene() {
@@ -286,6 +281,20 @@ var Cena3D = function(div) {
         }       
      });
 
+    this.atualizaLabels = function(){
+        console.log("1");
+        // percorer vetores de pontos e add labels para todos eles 
+        // criar funções para add label nos vetores e add W e V 
+        // se der tempo clicar no vetor e mostrar as caracteriscas
+        removeTexto();
+        this.i = 0;
+        for(this.i = 0; this.i < pontos.length; this.i++){
+            this.texto = new Texto(("P"+this.i), pontos[this.i].position.x, pontos[this.i].position.y, pontos[this.i].position.z-1);
+            // this.texto = new Texto("P1",parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz-1));
+            tela1.cena3D.addTexto(this.texto);
+        }    
+    }
+
     this.getObjeto = function(){
         alert("TODO: getObjeto");
     }
@@ -308,7 +317,36 @@ var Cena3D = function(div) {
 
     this.addTexto = function(obj){
         cena.add(obj);
-        pontos.push(obj);
+        textos.push(obj);
+    }
+
+    this.addLabelCampo = function(){
+        // this.texto = new Texto(("P"+this.i), pontos[this.i].position.x, pontos[this.i].position.y, pontos[this.i].position.z-1);
+        tela1.cena3D.addTexto(this.texto);
+    }
+
+    this.addLabelForca = function(){
+        // this.texto = new Texto("P1",parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz-1));
+        // tela1.cena3D.addTexto(this.texto);
+    }
+
+    this.addLabelTrabalho = function(){
+        // this.texto = new Texto("P1",parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz-1));
+        // tela1.cena3D.addTexto(this.texto);
+    }
+
+    this.addLabelPotencial = function(){
+        // this.texto = new Texto(("P"+this.i), pontos[this.i].position.x, pontos[this.i].position.y, pontos[this.i].position.z-1);
+        // this.texto = new Texto("P1",parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz-1));
+        // tela1.cena3D.addTexto(this.texto);
+    }
+
+    function removeTexto(){
+        this.i = 0;
+        for(this.i = 0; this.i < textos.length; this.i++){
+            cena.remove(textos[this.i]);
+        }      
+        textos = [];
     }
 
     this.addVetor = function(pInicial, Pfim, tipo){
@@ -324,11 +362,6 @@ var Cena3D = function(div) {
         }      
         vetores = [];
     }
-
-	// this.selecionaPontos = function(){
- //        alert("Selecione o ponto inicial e final");
- //        // TRABALHO = 1;
- //    }
 
     // metodo para listar todos os objetos do Model
     this.listObjView = function(){

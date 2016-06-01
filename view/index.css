@@ -15,9 +15,9 @@
     padding: 20px;
     border: solid 1px #331;
     background: #00FF66;
-    opacity:0.9;
+    /*opacity:0.9;*/
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     display: none;
     vertical-align: top; 
 }
@@ -28,9 +28,9 @@
     padding: 20px;
     border: solid 1px #331;
     background: #1E90FF;
-    opacity:0.9;
+    /*opacity:0.9;*/
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     display: none;
     vertical-align: top;
     id: 0;
@@ -42,9 +42,9 @@
     padding: 20px;
     border: solid 1px #331;
     background: #F22326;
-    opacity:0.9;
+    /*opacity:0.9;*/
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     display: none;
     vertical-align: top;
 }
@@ -55,9 +55,9 @@
     padding: 20px;
     border: solid 1px #331;
     background: #F9FF26;
-    opacity:0.9;
+    /*opacity:0.9;*/
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     display: none;
     vertical-align: top;   
 }
@@ -69,11 +69,21 @@
     padding: 20px;
     border: solid 1px #331;
     background: #00FF00;
-    opacity:0.8;
+    /*opacity:0.8;*/
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     display: none;
     vertical-align: top;   
+}
+
+#divTrans{
+ top: 0px;
+ width:100%; height:auto; min-height:100%; /* aqui é onde acontece a mágica, a propriedade height:auto e min-height: 100% fará com que esta div ocupe sempre a altura total do navegador, mesmo quando redimensionado */
+ background:black;
+ position: absolute;
+ display: none;
+ z-index: 3;
+ opacity:0.5;
 }
 
 .nav-tabs.centered, .nav-pills.centered {

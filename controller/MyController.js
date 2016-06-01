@@ -22,33 +22,37 @@ var Controller = function(){
         // percorer vetor de pontos 
         for (this.i = 0; this.i < this.a.length; this.i++) {
             this.p_click = [this.a[this.i].position.x, this.a[this.i].position.y, this.a[this.i].position.z]
-            this.vetor = [];
+            this.vetor = [0,0,0];
+            this.aux = [0,0,0];
             // percorer o vetor de objetos
             for(this.j = 0; this.j < this.o.length; this.j++){
                 this.p_obj = [this.o[this.j].position.x, this.o[this.j].position.y, this.o[this.j].position.z];
                 // verificar se objeto tem mudar 
                 this.raio = this.o[this.j].raio;
                 // soma todos os vetores de campo eletrico gerados pelos objetos
-                this.vetor[0] += this.vetor[0];
-                this.vetor[1] += this.vetor[1];
-                this.vetor[2] += this.vetor[2];
                 this.carga = this.oModel[this.j].carga;
                 if(this.o[this.j].geometry.type == "TorusGeometry"){
-                    this.vetor = calcCampoAnel(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcCampoAnel(this.p_click, this.p_obj, this.raio, this.carga);
                 }
                 if(this.o[this.j].geometry.type == "CircleGeometry"){
-                    this.vetor = calcCampoDisco(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcCampoDisco(this.p_click, this.p_obj, this.raio, this.carga);
                 }
                 if(this.o[this.j].geometry.type == "CylinderGeometry"){
-                    this.vetor = calcCampoLinha(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcCampoLinha(this.p_click, this.p_obj, this.raio, this.carga);
                 }
-            } 
+                this.aux[0] = parseFloat(this.aux[0]);
+                this.aux[1] = parseFloat(this.aux[1]);
+                this.aux[2] = parseFloat(this.aux[2]);               
+                this.vetor[0] = this.vetor[0] + this.aux[0];
+                this.vetor[1] = this.vetor[1] + this.aux[1];
+                this.vetor[2] = this.vetor[2] + this.aux[2];
+            }
             this.pI[0] = this.p_click[0] + (this.vetor[0]/250);
             this.pI[1] = this.p_click[1] + (this.vetor[1]/250);
             this.pI[2] = this.p_click[2] + (this.vetor[2]/250);
             tela1.cena3D.addVetor(this.p_click, this.pI, "E");
-            console.log("Vetor : "+this.pI);
-            console.log("Campo eletrico: "+this.vetor);
+            // console.log("Vetor : "+this.pI);
+            // console.log("Campo eletrico: "+this.vetor);
         }
     }
 
@@ -70,35 +74,39 @@ var Controller = function(){
         // percorer vetor de pontos 
         for (this.i = 0; this.i < this.a.length; this.i++) {
             this.p_click = [this.a[this.i].position.x, this.a[this.i].position.y, this.a[this.i].position.z]
-            this.vetor = [];
+            this.vetor = [0,0,0];
+            this.aux = [0,0,0];
             // percorer o vetor de objetos
             for(this.j = 0; this.j < this.o.length; this.j++){
                 this.p_obj = [this.o[this.j].position.x, this.o[this.j].position.y, this.o[this.j].position.z];
                 // verificar se objeto tem mudar 
                 this.raio = this.o[this.j].raio;
                 // soma todos os vetores de campo eletrico gerados pelos objetos
-                this.vetor[0] += this.vetor[0];
-                this.vetor[1] += this.vetor[1];
-                this.vetor[2] += this.vetor[2];
                 this.carga = this.oModel[this.j].carga;
                 if(this.o[this.j].geometry.type == "TorusGeometry"){
-                    this.vetor = calcCampoAnel(this.p_click, this.p_obj, this.raio, this.carga);
-                    this.vetor[0] = this.vetor[0] * (this.aModel[this.i].carga*Math.pow(10,-6));
-                    this.vetor[1] = this.vetor[1] * (this.aModel[this.i].carga*Math.pow(10,-6));
-                    this.vetor[2] = this.vetor[2] * (this.aModel[this.i].carga*Math.pow(10,-6));
+                    this.aux = calcCampoAnel(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux[0] = this.aux[0] * (this.aModel[this.i].carga*Math.pow(10,-6));
+                    this.aux[1] = this.aux[1] * (this.aModel[this.i].carga*Math.pow(10,-6));
+                    this.aux[2] = this.aux[2] * (this.aModel[this.i].carga*Math.pow(10,-6));
                 }
                 if(this.o[this.j].geometry.type == "CircleGeometry"){
-                    this.vetor = calcCampoDisco(this.p_click, this.p_obj, this.raio, this.carga);
-                    this.vetor[0] = this.vetor[0] * this.aModel[this.i].carga*Math.pow(10,-6);
-                    this.vetor[1] = this.vetor[1] * this.aModel[this.i].carga*Math.pow(10,-6);
-                    this.vetor[2] = this.vetor[2] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux = calcCampoDisco(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux[0] = this.aux[0] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux[1] = this.aux[1] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux[2] = this.aux[2] * this.aModel[this.i].carga*Math.pow(10,-6);
                 }
                 if(this.o[this.j].geometry.type == "CylinderGeometry"){
-                    this.vetor = calcCampoLinha(this.p_click, this.p_obj, this.raio, this.carga);
-                    this.vetor[0] = this.vetor[0] * this.aModel[this.i].carga*Math.pow(10,-6);
-                    this.vetor[1] = this.vetor[1] * this.aModel[this.i].carga*Math.pow(10,-6);
-                    this.vetor[2] = this.vetor[2] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux = calcCampoLinha(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux[0] = this.aux[0] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux[1] = this.aux[1] * this.aModel[this.i].carga*Math.pow(10,-6);
+                    this.aux[2] = this.aux[2] * this.aModel[this.i].carga*Math.pow(10,-6);
                 }
+                this.aux[0] = parseFloat(this.aux[0]);
+                this.aux[1] = parseFloat(this.aux[1]);
+                this.aux[2] = parseFloat(this.aux[2]);               
+                this.vetor[0] = this.vetor[0] + this.aux[0];
+                this.vetor[1] = this.vetor[1] + this.aux[1];
+                this.vetor[2] = this.vetor[2] + this.aux[2];    
             } 
             this.pI[0] = this.p_click[0] + this.vetor[0]*500;
             this.pI[1] = this.p_click[1] + this.vetor[1]*500;
@@ -114,31 +122,23 @@ var Controller = function(){
         this.p_inicial = p_inicial;
         this.p_final = p_final;
 
-        this.a = tela1.cena3D.listPontosView();
-        this.aModel = controlador.objeto.listPontos();
-        this.o = tela1.cena3D.listObjView();
-        this.oModel = controlador.objeto.listObj();
-        
-        if(this.o.length < 1){
-            alert("Inserir objetos geometricos");
-        }
-        if(this.a.length < 1){
-            alert("Inserir dois pontos");
-        }
-        if(this.a.length < 2){
-            alert("Inserir mais um ponto");
-        } 
-        // // selecionar dois pontos na tela
-        // this.pts = tela1.cena3D.selecionaPontos();
-
-        this.j = 0;
-        // percorer o vetor de objetos
-        for(this.j = 0; this.j < this.o.length; this.j++){
-            // alert(o[this.j].geometry.type); passar ponto inicial
-            this.trab = this.trab + calcTrabalho(this.p_inicial, this.p_final, this.o[this.j], this.oModel[this.j], this.aModel[this.j]);
+       if(this.p_inicial[0] == this.p_final[0] && this.p_inicial[1] == this.p_final[1] && this.p_inicial[2] == this.p_final[2]){
+            this.trab = 0;
+        } else {
+            this.a = tela1.cena3D.listPontosView();
+            this.aModel = controlador.objeto.listPontos();
+            this.o = tela1.cena3D.listObjView();
+            this.oModel = controlador.objeto.listObj();
+            
+            this.j = 0;
+            // percorer o vetor de objetos
+            for(this.j = 0; this.j < this.o.length; this.j++){
+                // alert(o[this.j].geometry.type); passar ponto inicial
+                this.trab = this.trab + calcTrabalho(this.p_inicial, this.p_final, this.o[this.j], this.oModel[this.j], this.aModel[this.j]);
+            }
+            tela1.cena3D.addVetor(this.p_inicial, this.p_final, "W");
         }
         console.log("Trabalho: "+this.trab);
-        tela1.cena3D.addVetor(this.p_inicial, this.p_final, "W");
     }
 
     this.calculaPotencial = function(){
@@ -155,28 +155,26 @@ var Controller = function(){
         // percorer vetor de pontos 
         for (this.i = 0; this.i < this.a.length; this.i++) {
             this.p_click = [this.a[this.i].position.x, this.a[this.i].position.y, this.a[this.i].position.z]
-            this.vetor = [];
+            this.vetor = 0;
+            this.aux = 0;
             // percorer o vetor de objetos
             for(this.j = 0; this.j < this.o.length; this.j++){
                 this.p_obj = [this.o[this.j].position.x, this.o[this.j].position.y, this.o[this.j].position.z];
                 // verificar se objeto tem mudar 
                 this.raio = this.o[this.j].raio;
-                // soma todos os vetores de campo eletrico gerados pelos objetos
-                this.vetor[0] += this.vetor[0];
-                this.vetor[1] += this.vetor[1];
-                this.vetor[2] += this.vetor[2];
                 this.carga = this.oModel[this.j].carga;
                 if(this.o[this.j].geometry.type == "TorusGeometry"){
-                    this.vetor = calcPotencialAnel(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcPotencialAnel(this.p_click, this.p_obj, this.raio, this.carga);
                 }
                 if(this.o[this.j].geometry.type == "CircleGeometry"){
-                    this.vetor = calcPotencialDisco(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcPotencialDisco(this.p_click, this.p_obj, this.raio, this.carga);
                 }
                 if(this.o[this.j].geometry.type == "CylinderGeometry"){
-                    this.vetor = calcPotencialLinha(this.p_click, this.p_obj, this.raio, this.carga);
+                    this.aux = calcPotencialLinha(this.p_click, this.p_obj, this.raio, this.carga);
                 }
-            } 
-            console.log("Vetor Campo eletrico: "+this.vetor);
+                this.vetor = this.vetor + parseFloat(this.aux)
+            }
+            console.log("Potencial eletrico Ponto"+this.j+" : "+this.vetor);
         }
     }
 

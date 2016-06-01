@@ -3,7 +3,7 @@ var BarraLateral = function(cena3D, div) {
   var CLICKED;
 
   // document.getElementById(div).style.border = "solid red 2px";
-  document.getElementById(div).style.backgroundColor = "#000080";
+  document.getElementById(div).style.backgroundColor = "#0000FF";
 
   // Eventos de click nos botões
 
@@ -50,6 +50,7 @@ var BarraLateral = function(cena3D, div) {
       div.style.left = '50px';
       div.style.display = 'block';
     }
+    document.getElementById('divTrans').style.display = 'block';
   }
 
   // função para inserir objeto
@@ -61,9 +62,8 @@ var BarraLateral = function(cena3D, div) {
       this.carga = document.getElementById('cargaPonto').value;
       obj = new PontoView(4,parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addPonto(obj);
-      // this.texto = new Texto("aaa",0,0,0);
-      // tela1.cena3D.addTextp(texto);
       controlador.objeto.addObjetoModel("ponto", parseFloat(this.carga));
+      tela1.cena3D.atualizaLabels();
     }else if(CLICKED == "anelBotao") {
       this.raio = document.getElementById('raio').value
       this.px = document.getElementById('pxI').value;
@@ -107,6 +107,7 @@ var BarraLateral = function(cena3D, div) {
     if(CLICKED == "linhaBotao"){
        document.getElementById('popupBarra').style.display = 'none';
     }
+    document.getElementById('divTrans').style.display = 'none';
   }
 
 }

@@ -1,34 +1,39 @@
 var BarraInferior = function(div) {
 
 	// document.getElementById(div).style.border = "solid black 2px";
-	document.getElementById(div).style.backgroundColor = "#000080";
+	document.getElementById(div).style.backgroundColor = "#0000FF";
 
 	// Eventos de click nos botões
    document.getElementById("forcaBotao").addEventListener("click", function() {
+   		//retorar uma tupla vetor id e valor do campo
    		controlador.calculaForca();
+   		tela1.cena3D.addLabelForca();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
    document.getElementById("campoBotao").addEventListener("click", function() {
 		controlador.calculaCampo();
+		// tela1.cena3D.addLabelCampo(a[0], a[1]);
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
    
    document.getElementById("trabalhoBotao").addEventListener("click", function() {
    		limparCombo();
 		carregarCombo(); 		
-   	    abriPop();
+   	    // tela1.cena3D.addLabelTrabalho();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
    }, false);
 
    document.getElementById("potencialBotao").addEventListener("click", function() {
 		controlador.calculaPotencial();
-		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  
+		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO 
+		tela1.cena3D.addLabelPotencial();
    }, false);
 
 
    this.fecharPop = function(){
    		document.getElementById('comboBox').style.display = 'none';
+	    document.getElementById('divTrans').style.display = 'none';
    }
 
    this.calculaTrabalhoBotao = function(){
@@ -51,6 +56,7 @@ var BarraInferior = function(div) {
 
    function abriPop(){
    	    document.getElementById('comboBox').style.display = 'block';
+   	    document.getElementById('divTrans').style.display = 'block';
         // var div = document.getElementById('popupCena');
         document.getElementById('comboBox').style.position = 'absolute';
         document.getElementById('comboBox').style.left = '950px';
@@ -79,6 +85,15 @@ var BarraInferior = function(div) {
     		// comboInicial.add(opt0, comboInicial.options[0]);
     		comboFinal.add(opt0, comboFinal.options[0]);
    		};
+
+   		this.obj = tela1.cena3D.listObjView();
+   		if(this.pts.length > 0 && this.obj.length > 0){
+   	    	abriPop();
+   		}else if (this.pts.length < 1){
+   			alert("Inserir Ponto");
+   		} else if (this.obj.length < 1){
+   			alert("Inserir Objeto");
+   		}
    }
 
    function limparCombo(){

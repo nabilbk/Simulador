@@ -73,6 +73,7 @@ var VetorView =  function(pInicio, pFim, tipo){
         var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, this.cor, 2, 1 );
         arrowHelper.line.material.linewidth = 3;
     }
+
     if(tipo == "W"){
 
         var material = new THREE.LineDashedMaterial({
@@ -88,7 +89,7 @@ var VetorView =  function(pInicio, pFim, tipo){
             new THREE.Vector3( pFim[0], pFim[1], pFim[2] )
         );
 
-        var arrowHelper = new THREE.LineSegments( geometry, material);
+        var arrowHelper = new THREE.Line( geometry, material);
     }
 
     return arrowHelper;

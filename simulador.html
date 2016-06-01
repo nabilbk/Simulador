@@ -4,8 +4,12 @@
     <title>Campo eletrico</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
+    <script type="text/javascript" src="view/three.js"></script>
+    <script type="text/javascript" src="view/libs/dat.gui.js"></script>
+    <script type="text/javascript" src="view/fonts/helvetiker_regular.typeface.js"></script>
+    <script type="text/javascript" src="view/fonts/helvetiker_bold.typeface.js"></script>
+    <script type="text/javascript" src="view/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script>
     <script type="text/javascript" src="view/Tela.js"></script>
-    <script type="text/javascript" src="view/libs/three.js"></script>
     <script type="text/javascript" src="view/libs/Projector.js"></script>
     <script type="text/javascript" src="view/libs/TrackballControls.js"></script>
     <script type="text/javascript" src="view/Cena3D.js"></script>
@@ -19,7 +23,6 @@
     <link href="view/index.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
     <div id="container" class="container-fluid">
         <div class="row" >
 
@@ -249,7 +252,6 @@
  
 
     <div id="comboBox" class="comboBox">
-
         <form id="myFormObj" >
         <td>
             <label for="Ponto Inicial">PontoInicial: </label>    
@@ -267,6 +269,26 @@
            </td>
         </form>
 
+    </div>
+
+    <div id="divTrans" class="divTrans"> lohmann </div>
+
+    <div id="popupVetorCampo" class="popupVetorCampo">
+        <td>
+            <label for="Vetor">Vetor: </label>    
+        </td>
+        <td>
+            <label for="Modulo">Modulo: </label>    
+        </td>
+    </div>
+
+    <div id="popupVetorForca" class="popupVetorForca">
+        <td>
+            <label for="Vetor">Vetor: </label>    
+        </td>
+        <td>
+            <label for="Modulo">Modulo: </label>    
+        </td>
     </div>
 
 </body>
