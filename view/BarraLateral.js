@@ -63,6 +63,7 @@ var BarraLateral = function(cena3D, div) {
       obj = new PontoView(4,parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addPonto(obj);
       controlador.objeto.addObjetoModel("ponto", parseFloat(this.carga));
+      tela1.cena3D.removeVetorView();
       tela1.cena3D.atualizaLabels();
     }else if(CLICKED == "anelBotao") {
       this.raio = document.getElementById('raio').value
@@ -71,6 +72,7 @@ var BarraLateral = function(cena3D, div) {
       this.pz = document.getElementById('pzI').value;
       this.carga = document.getElementById('cargaI').value; 
       obj = new AnelView(parseFloat(this.raio),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
+      tela1.cena3D.removeVetorView();
       tela1.cena3D.addObjeto(obj);
       controlador.objeto.addObjetoModel("anel", parseFloat(this.carga));
     }else if(CLICKED == "discoBotao") {
@@ -81,6 +83,7 @@ var BarraLateral = function(cena3D, div) {
       this.carga = document.getElementById('cargaI').value;
       obj = new DiscoView(parseFloat(this.raio),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addObjeto(obj);
+      tela1.cena3D.removeVetorView();
       controlador.objeto.addObjetoModel("disco", parseFloat(this.carga));
     }else if(CLICKED == "linhaBotao") {
       this.comprimento = document.getElementById('comprimento').value
@@ -90,6 +93,7 @@ var BarraLateral = function(cena3D, div) {
       this.carga = document.getElementById('cargaLinha').value;
       obj = new LinhaView(parseFloat(this.comprimento),parseFloat(this.px),parseFloat(this.py),parseFloat(this.pz));
       tela1.cena3D.addObjeto(obj);
+      tela1.cena3D.removeVetorView();      
       controlador.objeto.addObjetoModel("linha", parseFloat(this.carga));
     }
     else{

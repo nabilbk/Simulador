@@ -120,14 +120,14 @@ var Info = function(pInicial, Pfim, vetorCalculado, tipo) {
         this.cor = 0x00BFFF;
     }
     if(tipo == "V") {
-        this.deslocamentoz = 2;
+        this.deslocamentoz = 1;
         this.deslocamentoy = 2.1;
         this.cor = 0x00FF00;
     }
     if(tipo == "W") {
         this.deslocamentoz = 2;
         this.deslocamentoy = 2.1;
-        this.cor = 0xFF8C00;
+        this.cor = 0xE6E6FA;
     }
 
     var cubeGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);

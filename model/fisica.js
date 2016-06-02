@@ -63,7 +63,7 @@ function calcCampoAnel(p_click, p_obj, raio, carga){
 
 function calcCampoDisco(p_click, p_obj, raio, carga){
 
-	var nIteracoes = 1000;
+	var nIteracoes = 900;
 
 	// campo eletrico total no disco
 	var ED = [0, 0, 0];
@@ -199,17 +199,19 @@ function calcTrabalho(p_inicial, p_final, objView, objModel, pontoModel){
 		}
     }
     if(objView.geometry.type == "CircleGeometry"){
-        for(j = 0; j < nIteracoes; j++){
-        	vetorForca = calcCampoDisco(p_click, p_obj, raio, carga);
-            vetorForca[0] = vetorForca[0] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[1] = vetorForca[1] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[2] = vetorForca[2] * (pontoModel.carga*Math.pow(10,-6));
-            w = w + (vetorForca[0] * dDesloca[0]) + (vetorForca[1] * dDesloca[1]) +(vetorForca[2] * dDesloca[2]); 
-            // atualiza p_click
-            p_click[0] = p_click[0] + dDesloca[0];
-            p_click[1] = p_click[1] + dDesloca[1];
-            p_click[2] = p_click[2] + dDesloca[2]; 
-    	}	
+  		// nIteracoes = 200;
+    //     for(j = 0; j < nIteracoes; j++){
+    //     	vetorForca = calcCampoDisco(p_click, p_obj, raio, carga);
+    //         vetorForca[0] = vetorForca[0] * (pontoModel.carga*Math.pow(10,-6));
+    //         vetorForca[1] = vetorForca[1] * (pontoModel.carga*Math.pow(10,-6));
+    //         vetorForca[2] = vetorForca[2] * (pontoModel.carga*Math.pow(10,-6));
+    //         w = w + (vetorForca[0] * dDesloca[0]) + (vetorForca[1] * dDesloca[1]) +(vetorForca[2] * dDesloca[2]); 
+    //         // atualiza p_click
+    //         p_click[0] = p_click[0] + dDesloca[0];
+    //         p_click[1] = p_click[1] + dDesloca[1];
+    //         p_click[2] = p_click[2] + dDesloca[2]; 
+    // 	}
+    	w = 0;	
     }
     if(objView.geometry.type == "CylinderGeometry"){
         for(j = 0; j < nIteracoes; j++){

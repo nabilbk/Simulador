@@ -388,6 +388,10 @@ var Cena3D = function(div) {
         vetorInfo.push(obj);
     }
 
+    this.removeVetorView = function(){
+        removeVetor();
+    }
+
     function removeVetor(){
         this.i = 0;
         for(this.i = 0; this.i < vetores.length; this.i++){
