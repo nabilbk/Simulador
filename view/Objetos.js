@@ -1,6 +1,6 @@
 // define a classe Anel
 var AnelView = function(raio,px,py,pz) { 
-    var torusGeometry = new THREE.TorusGeometry(raio, 0.5, 20, 60, Math.PI*5 ); 
+    var torusGeometry = new THREE.TorusGeometry(raio, 0.4, 20, 60, Math.PI*5 ); 
     var torusMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
     var torus = new THREE.Mesh(torusGeometry, torusMaterial);
     torus.position.x = px;
@@ -62,15 +62,29 @@ var VetorView =  function(pInicio, pFim, tipo){
 
     var direction = to.clone().sub(from);
     var length = direction.length();
+    var headLength = length/6;
+    var headWidth = length/3;
+    if (headLength < 0.65){
+        headLength = 0.65;
+    }
+    if (headLength > 1){
+        headLength = 1;
+    }
+    if (headWidth < 0.65){
+        headWidth = 0.65;
+    }
+    if (headWidth > 2){
+        headWidth = 2;
+    }
     // ArrowHelper(dir, origin, length, hex, headLength, headWidth )
     if(tipo == "F"){
         this.cor = 0x0000ff;
-        var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, this.cor, 2, 1 );
+        var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, this.cor, headWidth, headLength );
         arrowHelper.line.material.linewidth = 3;
     }
     if(tipo == "E"){
-        this.cor = 0xff0000;
-        var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, this.cor, 2, 1 );
+        this.cor = 0xFFFF00;
+        var arrowHelper = new THREE.ArrowHelper(direction.normalize(), from, length, this.cor, headWidth, headLength );
         arrowHelper.line.material.linewidth = 3;
     }
 
@@ -94,4 +108,35 @@ var VetorView =  function(pInicio, pFim, tipo){
 
     return arrowHelper;
 
+}
+
+// Info(pInicial, Pfim, vetorCalculado)
+var Info = function(pInicial, Pfim, vetorCalculado, tipo) { 
+    this.deslocamentoz = 1;
+    this.deslocamentoy = 1;
+    this.cor = 0xFFD700;
+    if(tipo == "F") {
+        this.deslocamentoz = 2;
+        this.cor = 0x00BFFF;
+    }
+    if(tipo == "V") {
+        this.deslocamentoz = 2;
+        this.deslocamentoy = 2.1;
+        this.cor = 0x00FF00;
+    }
+    if(tipo == "W") {
+        this.deslocamentoz = 2;
+        this.deslocamentoy = 2.1;
+        this.cor = 0xFF8C00;
+    }
+
+    var cubeGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: this.cor});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.tipo = tipo;
+    cube.valor = vetorCalculado;
+    cube.position.x = pInicial[0];
+    cube.position.y = pInicial[1]-this.deslocamentoy;
+    cube.position.z = pInicial[2]-this.deslocamentoz;
+    return cube;
 }

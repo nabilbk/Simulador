@@ -46,6 +46,7 @@ var Controller = function(){
                 this.pI[1] = this.p_click[1] + (this.vetor[1]/250);
                 this.pI[2] = this.p_click[2] + (this.vetor[2]/250);
                 tela1.cena3D.addVetor(this.p_click, this.pI, "E");
+                tela1.cena3D.addVetorInfo(this.p_click, this.pI, this.vetor, "E");
                 // console.log("Vetor : "+this.pI);
                 // console.log("Campo eletrico: "+this.vetor);
             }
@@ -109,7 +110,8 @@ var Controller = function(){
                 this.pI[0] = this.p_click[0] + this.vetor[0]*500;
                 this.pI[1] = this.p_click[1] + this.vetor[1]*500;
                 this.pI[2] = this.p_click[2] + this.vetor[2]*500;
-                tela1.cena3D.addVetor(this.p_click, this.pI, "F"); 
+                tela1.cena3D.addVetor(this.p_click, this.pI, "F");
+                tela1.cena3D.addVetorInfo(this.p_click, this.pI, this.vetor, "F"); 
                 console.log("Vetor Campo eletrico: "+this.vetor);
             }
         }
@@ -144,6 +146,7 @@ var Controller = function(){
             tela1.cena3D.addVetor(this.p_inicial, this.p_final, "W");
         }
         console.log("Trabalho: "+this.trab);
+        tela1.cena3D.addVetorInfo(this.p_final, this.p_inicial, this.trab, "W");
     }
 
     this.calculaPotencial = function(){
@@ -175,6 +178,7 @@ var Controller = function(){
                     this.vetor = this.vetor + parseFloat(this.aux)
                 }
                 console.log("Potencial eletrico Ponto"+this.j+" : "+this.vetor);
+                tela1.cena3D.addVetorInfo(this.p_click, 0, this.vetor, "V");
             }
         }
         if(this.a.length < 1){

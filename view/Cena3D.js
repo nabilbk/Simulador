@@ -51,6 +51,7 @@ var Cena3D = function(div) {
     var objetos = [], plane;
     var pontos = [];
     var vetores = [];
+    var vetorInfo = [];
     var textos = [];
     var controls;
 
@@ -84,9 +85,6 @@ var Cena3D = function(div) {
 		mouse.x = ( (event.clientX - event.target.getBoundingClientRect().left) / event.currentTarget.width ) * 2 - 1;
 		mouse.y = - ( (event.clientY - event.target.getBoundingClientRect().top) / event.currentTarget.height ) * 2 + 1;
        
-        // raycaster.setFromCamera( mouse, camera );
-       
-
         vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
         vector = vector.unproject(camera);
 
@@ -121,20 +119,43 @@ var Cena3D = function(div) {
         // console.log("function onDocumentMouseDown");
         // console.log(mouse.x, mouse.y);
 
-        // raycaster.setFromCamera( mouse, camera );
+        var intersectsInfo = raycaster.intersectObjects(vetorInfo);
+        if (intersectsInfo.length > 0) {
+            // alert(intersectsInfo[0].object.valor);
+            document.getElementById('info').style.display = 'block';
+            document.getElementById('divTrans').style.display = 'block';
+            var div = document.getElementById('info');
+            div.style.position = 'absolute';
+            div.style.left = event.clientX + 'px';
+            div.style.top = event.clientY + 'px';
+            var divPai = $('.info');
+            if(intersectsInfo[0].object.tipo == "E"){
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor Campo El&eacute;trico: <br>"+intersectsInfo[0].object.valor+" N/C </div> <br>");
+                divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");
+            } else if(intersectsInfo[0].object.tipo == "F"){
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor For&ccedil;a El&eacute;trico :<br>"+intersectsInfo[0].object.valor+" N </div> <br>");
+                divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
+            } else if(intersectsInfo[0].object.tipo == "W"){
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Trabalho :<br>"+intersectsInfo[0].object.valor+" N/m </div> <br>");
+                divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
+            }else if(intersectsInfo[0].object.tipo == "V"){
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Potencial El&eacute;trico :<br>"+intersectsInfo[0].object.valor+" V </div> <br>");
+                divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
+            }
+        } else {
+            var ob = objetos.concat(pontos);
+            var intersects = raycaster.intersectObjects( ob );
 
-        var ob = objetos.concat(pontos);
-        var intersects = raycaster.intersectObjects( ob );
-
-        if (intersects.length > 0) {
-            // console.log(intersects[0]);
-            // intersects[0].object.material.transparent = true;
-            // intersects[0].object.material.opacity = 0.1;
-            SELECTED = intersects[0].object;
-            // removeObjeto(SELECTED);
-            var intersects = raycaster.intersectObject( plane );
-            if ( intersects.length > 0 ) {
-                 offset.copy( intersects[ 0 ].point ).sub(plane.position);
+            if (intersects.length > 0) {
+                // console.log(intersects[0]);
+                // intersects[0].object.material.transparent = true;
+                // intersects[0].object.material.opacity = 0.1;
+                SELECTED = intersects[0].object;
+                // removeObjeto(SELECTED);
+                var intersects = raycaster.intersectObject( plane );
+                if ( intersects.length > 0 ) {
+                     offset.copy( intersects[ 0 ].point ).sub(plane.position);
+                }
             }
         }
     }
@@ -189,6 +210,7 @@ var Cena3D = function(div) {
         if (intersectsObjetos.length > 0) {
             OBJ = intersectsObjetos[0].object;
             document.getElementById('popupCena').style.display = 'block';
+            document.getElementById('divTrans').style.display = 'block';
             var div = document.getElementById('popupCena');
             div.style.position = 'absolute';
             document.getElementById('popupCena').style.left = event.clientX + 'px';
@@ -210,6 +232,7 @@ var Cena3D = function(div) {
         if (intersectsPontos.length > 0) {
             OBJ = intersectsPontos[0].object;
             document.getElementById('popupCena').style.display = 'block';
+            document.getElementById('divTrans').style.display = 'block';
             var div = document.getElementById('popupCena');
             div.style.position = 'absolute';
             document.getElementById('popupCena').style.left = event.clientX + 'px';
@@ -232,7 +255,15 @@ var Cena3D = function(div) {
 
     this.fecharPop = function(){
         document.getElementById('popupCena').style.display = 'none';
+        document.getElementById('divTrans').style.display = 'none';
+
         tela1.cena3D.atualizaLabels();        
+    }
+
+    this.fecharPopInfo = function(){
+        $('.info').empty()
+        document.getElementById('info').style.display = 'none';
+        document.getElementById('divTrans').style.display = 'none';
     }
 
     function renderScene() {
@@ -351,12 +382,23 @@ var Cena3D = function(div) {
         vetores.push(obj);
     }
 
+    this.addVetorInfo = function(pInicial, Pfim, vetorCalculado, tipo){
+        obj = new Info(pInicial, Pfim, vetorCalculado, tipo);
+        cena.add(obj);
+        vetorInfo.push(obj);
+    }
+
     function removeVetor(){
         this.i = 0;
         for(this.i = 0; this.i < vetores.length; this.i++){
             cena.remove(vetores[this.i]);
         }      
         vetores = [];
+        // remove todos os obj de informação do vetor 
+        for(this.i = 0; this.i < vetorInfo.length; this.i++){
+            cena.remove(vetorInfo[this.i]);
+        }      
+        vetorInfo = [];
     }
 
     // metodo para listar todos os objetos do Model
@@ -434,6 +476,8 @@ var Cena3D = function(div) {
 function fecharpopup2(){
     tela1.cena3D.fecharPop();     
 }
+
+
 
 
 

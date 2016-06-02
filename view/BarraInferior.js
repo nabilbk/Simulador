@@ -18,7 +18,7 @@ var BarraInferior = function(div) {
    }, false);
    
    document.getElementById("trabalhoBotao").addEventListener("click", function() {
-   		limparCombo();
+   	limparCombo();
 		carregarCombo(); 		
    	    // tela1.cena3D.addLabelTrabalho();
 		// CONTROLLER --> VERIFICA AS DEPENDENCIAS E REALIZA O CALCULO  

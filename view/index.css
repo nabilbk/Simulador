@@ -10,8 +10,8 @@
 }
 #popup{
     margin: auto;
-    width: 220px;
-    height: 140px;
+    width: auto;
+    height: auto;
     padding: 20px;
     border: solid 1px #331;
     background: #00FF66;
@@ -23,8 +23,8 @@
 }
 #popupCena{
     margin: auto;
-    width: 220px;
-    height: 140px;
+    width: auto;
+    height: auto;
     padding: 20px;
     border: solid 1px #331;
     background: #1E90FF;
@@ -37,8 +37,8 @@
 }
 #popupBarra{
     margin: auto;
-    width: 220px;
-    height: 140px;
+    width: auto;
+    height: auto;
     padding: 20px;
     border: solid 1px #331;
     background: #F22326;
@@ -50,8 +50,8 @@
 }
 #popupPonto{
     margin: auto;
-    width: 220px;
-    height: 140px;
+    width: auto;
+    height: auto;
     padding: 20px;
     border: solid 1px #331;
     background: #F9FF26;
@@ -64,11 +64,25 @@
 
 #comboBox{
     margin: auto;
-    width: 220px;
-    height: 140px;
+    width: auto;
+    height: auto;
     padding: 20px;
     border: solid 1px #331;
     background: #00FF00;
+    /*opacity:0.8;*/
+    position: absolute;
+    z-index: 4;
+    display: none;
+    vertical-align: top;   
+}
+
+#info{
+    margin: auto;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border: solid 1px #331;
+    background: #66CDAA;
     /*opacity:0.8;*/
     position: absolute;
     z-index: 4;
