@@ -130,16 +130,16 @@ var Cena3D = function(div) {
             div.style.top = event.clientY + 'px';
             var divPai = $('.info');
             if(intersectsInfo[0].object.tipo == "E"){
-                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor Campo El&eacute;trico: <br>"+intersectsInfo[0].object.valor+" N/C </div> <br>");
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor Campo El&eacute;trico:<br>("+intersectsInfo[0].object.valor[0].toFixed(4)+", "+intersectsInfo[0].object.valor[1].toFixed(4)+", "+intersectsInfo[0].object.valor[2].toFixed(4)+") N/C </div> <br>");
                 divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");
             } else if(intersectsInfo[0].object.tipo == "F"){
-                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor For&ccedil;a El&eacute;trico :<br>"+intersectsInfo[0].object.valor+" N </div> <br>");
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Vetor For&ccedil;a El&eacute;trico :<br>("+intersectsInfo[0].object.valor[0].toFixed(4)+", "+intersectsInfo[0].object.valor[1].toFixed(4)+", "+intersectsInfo[0].object.valor[2].toFixed(4)+") N </div> <br>");
                 divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
             } else if(intersectsInfo[0].object.tipo == "W"){
-                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Trabalho :<br>"+intersectsInfo[0].object.valor+" N/m </div> <br>");
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Trabalho :<br>"+intersectsInfo[0].object.valor.toFixed(5)+" J </div> <br>");
                 divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
             }else if(intersectsInfo[0].object.tipo == "V"){
-                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Potencial El&eacute;trico :<br>"+intersectsInfo[0].object.valor+" V </div> <br>");
+                divPai.append("<div class='textoBox' style='display:table-cell;width:99%'> Potencial El&eacute;trico :<br>"+intersectsInfo[0].object.valor.toFixed(5)+" V </div> <br>");
                 divPai.append("<input type='button' class='b' onclick='tela1.cena3D.fecharPopInfo()' value='OK'>");           
             }
         } else {

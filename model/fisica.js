@@ -153,83 +153,39 @@ function calcCampoLinha(p_click, p_obj, comprimento, carga){
 
 
 // calcTrabalho(p_inicial, p_final, o[j], oModel[j]);
-function calcTrabalho(p_inicial, p_final, objView, objModel, pontoModel){
-
-	var p_obj = [0,0,0];
-	p_obj[0] = objView.position.x;
-	p_obj[1] = objView.position.y;
-	p_obj[2] = objView.position.z;
-
-	var nIteracoes = 500;
-
-	var raio = 0;
-	raio = objView.raio;
-	var carga;
-	carga = objModel.carga;
-
-	var p_click = [0,0,0];
-	p_click[0] = p_inicial[0];
-	p_click[1] = p_inicial[1];
-	p_click[2] = p_inicial[2]; 
-
-	var vetorForca = [0,0,0];
-	var w = 0;
-
-	var desloca = [0,0,0];
-	desloca[0] = p_final[0] - p_inicial[0];
-	desloca[1] = p_final[1] - p_inicial[1];
- 	desloca[2] = p_final[2] - p_inicial[2];
-
-	var dDesloca = [0,0,0];
-	dDesloca[0] = desloca[0] / nIteracoes;
-	dDesloca[1] = desloca[1] / nIteracoes;
-	dDesloca[2] = desloca[2] / nIteracoes;
-    
-    if(objView.geometry.type == "TorusGeometry"){
-        for(j = 0; j < nIteracoes; j++){
-        	vetorForca = calcCampoAnel(p_click, p_obj, raio, carga);
-            vetorForca[0] = vetorForca[0] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[1] = vetorForca[1] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[2] = vetorForca[2] * (pontoModel.carga*Math.pow(10,-6));
-            w = w + (vetorForca[0] * dDesloca[0]) + (vetorForca[1] * dDesloca[1]) +(vetorForca[2] * dDesloca[2]); 
-            // atualiza p_click
-            p_click[0] = p_click[0] + dDesloca[0];
-            p_click[1] = p_click[1] + dDesloca[1];
-            p_click[2] = p_click[2] + dDesloca[2]; 
-		}
-    }
-    if(objView.geometry.type == "CircleGeometry"){
-  		// nIteracoes = 200;
-    //     for(j = 0; j < nIteracoes; j++){
-    //     	vetorForca = calcCampoDisco(p_click, p_obj, raio, carga);
-    //         vetorForca[0] = vetorForca[0] * (pontoModel.carga*Math.pow(10,-6));
-    //         vetorForca[1] = vetorForca[1] * (pontoModel.carga*Math.pow(10,-6));
-    //         vetorForca[2] = vetorForca[2] * (pontoModel.carga*Math.pow(10,-6));
-    //         w = w + (vetorForca[0] * dDesloca[0]) + (vetorForca[1] * dDesloca[1]) +(vetorForca[2] * dDesloca[2]); 
-    //         // atualiza p_click
-    //         p_click[0] = p_click[0] + dDesloca[0];
-    //         p_click[1] = p_click[1] + dDesloca[1];
-    //         p_click[2] = p_click[2] + dDesloca[2]; 
-    // 	}
-    	w = 0;	
-    }
-    if(objView.geometry.type == "CylinderGeometry"){
-        for(j = 0; j < nIteracoes; j++){
-        	vetorForca = calcCampoLinha(p_click, p_obj, raio, carga);
-            vetorForca[0] = vetorForca[0] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[1] = vetorForca[1] * (pontoModel.carga*Math.pow(10,-6));
-            vetorForca[2] = vetorForca[2] * (pontoModel.carga*Math.pow(10,-6));
-            w = w + (vetorForca[0] * dDesloca[0]) + (vetorForca[1] * dDesloca[1]) +(vetorForca[2] * dDesloca[2]); 
-            // atualiza p_click
-            p_click[0] = p_click[0] + dDesloca[0];
-            p_click[1] = p_click[1] + dDesloca[1];
-            p_click[2] = p_click[2] + dDesloca[2]; 
-    	}
-    }
+function calcTrabalho(p_inicial, p_final, objetosView, objetosModel, carga){
+	this.pontoInical = p_inicial;
+	this.pontoFinal = p_final;
+    w = carga * (calcPotecialPonto(this.pontoInical, objetosView, objetosModel) - calcPotecialPonto(this.pontoFinal, objetosView, objetosModel));
     return w;
 };
 
+function calcPotecialPonto(ponto, listaObjView, listaObjModel){
 
+        this.o = listaObjView;
+        this.oModel = listaObjModel;
+        this.vetor = 0;
+        this.aux = 0;
+        // percorer o vetor de objetos
+        for(this.j = 0; this.j < this.o.length; this.j++){
+            this.p_obj = [this.o[this.j].position.x, this.o[this.j].position.y, this.o[this.j].position.z];
+            // verificar se objeto tem mudar 
+            this.raio = this.o[this.j].raio;
+            this.carga = this.oModel[this.j].carga;
+            if(this.o[this.j].geometry.type == "TorusGeometry"){
+        	    this.aux = calcPotencialAnel(ponto, this.p_obj, this.raio, this.carga);
+            }
+            if(this.o[this.j].geometry.type == "CircleGeometry"){
+                this.aux = calcPotencialDisco(ponto, this.p_obj, this.raio, this.carga);
+            }
+            if(this.o[this.j].geometry.type == "CylinderGeometry"){
+                this.aux = calcPotencialLinha(ponto, this.p_obj, this.raio, this.carga);
+            }
+            this.vetor = this.vetor + parseFloat(this.aux)
+        }
+        // alert("Potencial eletrico Ponto"+ponto+" : "+this.vetor);
+        return this.vetor;
+}
 
 function calcPotencialAnel(p_click, p_obj, raio, carga){
 

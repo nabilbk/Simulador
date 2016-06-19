@@ -45,11 +45,12 @@ var BarraInferior = function(div) {
    		posiaoI = comboInicial.options[comboInicial.selectedIndex].value;
    		posiaoF = comboFinal.options[comboFinal.selectedIndex].value;
 
-   		this.pts = tela1.cena3D.listPontosView();
+   		// this.pts = tela1.cena3D.listPontosView();
 
-   		pIncial = [this.pts[posiaoI].position.x, this.pts[posiaoI].position.y, this.pts[posiaoI].position.z];
-   		pFinal = [this.pts[posiaoF].position.x, this.pts[posiaoF].position.y, this.pts[posiaoF].position.z];
-		controlador.calculaTrabalho(pIncial, pFinal);
+   		// pIncial = [this.pts[posiaoI].position.x, this.pts[posiaoI].position.y, this.pts[posiaoI].position.z];
+   		// pFinal = [this.pts[posiaoF].position.x, this.pts[posiaoF].position.y, this.pts[posiaoF].position.z];
+		
+		controlador.calculaTrabalho(posiaoI, posiaoF);
 		fecharpopupInf();
 
    }

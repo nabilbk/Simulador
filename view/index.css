@@ -111,6 +111,26 @@
     margin-top:1%;
 }
 
+.bcampo{
+    background:#FFD700;
+    border-color:#FFD700;
+}
+
+.bforca{
+    background:#00BFFF;
+    border-color:#00BFFF;
+}
+
+.btrab{
+    background:#E6E6FA;
+    border-color:#E6E6FA;
+}
+
+.bpot{
+    background:#00FF00;
+    border-color:#00FF00;
+}
+
 p{
     color:black;
 }

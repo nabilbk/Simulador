@@ -123,26 +123,21 @@ var Controller = function(){
         }    
     }
 
-    this.calculaTrabalho = function(p_inicial, p_final){
-
+    this.calculaTrabalho = function(i_inicial, i_final){
         this.trab = 0;
-        this.p_inicial = p_inicial;
-        this.p_final = p_final;
+        this.a = tela1.cena3D.listPontosView();
+        this.aModel = controlador.objeto.listPontos();
+        this.o = tela1.cena3D.listObjView();
+        this.oModel = controlador.objeto.listObj();       
+        this.p_inicial = [this.a[i_inicial].position.x, this.a[i_inicial].position.y, this.a[i_inicial].position.z];
+        this.p_final = [this.a[i_final].position.x, this.a[i_final].position.y, this.a[i_final].position.z];
 
        if(this.p_inicial[0] == this.p_final[0] && this.p_inicial[1] == this.p_final[1] && this.p_inicial[2] == this.p_final[2]){
             this.trab = 0;
         } else {
-            this.a = tela1.cena3D.listPontosView();
-            this.aModel = controlador.objeto.listPontos();
-            this.o = tela1.cena3D.listObjView();
-            this.oModel = controlador.objeto.listObj();
-            
-            this.j = 0;
-            // percorer o vetor de objetos
-            for(this.j = 0; this.j < this.o.length; this.j++){
-                // alert(o[this.j].geometry.type); passar ponto inicial
-                this.trab = this.trab + calcTrabalho(this.p_inicial, this.p_final, this.o[this.j], this.oModel[this.j], this.aModel[this.j]);
-            }
+            this.carga = this.aModel[i_inicial].carga;
+
+            this.trab = calcTrabalho(this.p_inicial, this.p_final, this.o, this.oModel, this.carga);
             tela1.cena3D.addVetor(this.p_inicial, this.p_final, "W");
         }
         console.log("Trabalho: "+this.trab);
